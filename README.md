@@ -9,3 +9,6 @@ The main reason Minerva exists is to power Saturn, a complete D only ray tracer 
 - The 2 and 3 dimensional vectors are documented, tested and complete. I may add some convenience functions later on, but for now it is done.
 - 2x2 and 3x3 matrices are now supported.
 
+## Documentation
+
+The documentation can be found here: [https://exodiquas.github.io/Minerva/](https://exodiquas.github.io/Minerva/)
