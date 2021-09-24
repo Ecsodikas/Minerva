@@ -1,0 +1,9 @@
+{
+	"authors": [
+		"eXodiquas"
+	],
+	"copyright": "Copyright © 2021, eXodiquas",
+	"description": "Small linear algebra library.",
+	"license": "MIT",
+	"name": "minerva"
+}
