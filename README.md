@@ -7,5 +7,5 @@ The main reason Minerva exists is to power Saturn, a complete D only ray tracer 
 ## Current State
 
 - The 2 and 3 dimensional vectors are documented, tested and complete. I may add some convenience functions later on, but for now it is done.
-- The next step is to add support for 2x2 and 3x3 matrices.
+- 2x2 and 3x3 matrices are now supported.
 
