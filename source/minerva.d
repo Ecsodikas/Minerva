@@ -11,7 +11,7 @@ enum Vector3Pos {X, Y, Z}
 /**
  * Struct representing a 2 dimensional vector.
  */
-struct Vector2 {
+immutable struct Vector2 {
   double x;
   double y;
 } 
@@ -19,7 +19,7 @@ struct Vector2 {
 /**
  * Struct representing a 3 dimensional vector.
  */
-struct Vector3 {
+immutable struct Vector3 {
   double x;
   double y;
   double z;
@@ -455,4 +455,426 @@ unittest {
   assert(a.downgrade(Vector3Pos.X) == Vector2(0.0, 1.0));
   assert(a.downgrade(Vector3Pos.Y) == Vector2(5.0, 1.0));
   assert(a.downgrade(Vector3Pos.Z) == Vector2(5.0, 0.0));
+}
+
+//////////////////////////////////////////////////////////////////////
+//                       Matrix Data Structures                     //
+//////////////////////////////////////////////////////////////////////
+
+/**
+ * Struct representing a 2x2 matrix in the form:
+ * a b
+ * c d
+ */
+immutable struct Matrix2x2 {
+  double a;
+  double b;
+  double c;
+  double d;
+}
+
+/**
+ * Struct representing a 3x3 matrix in the form:
+ * a b c
+ * d e f
+ * g h i
+ */
+immutable struct Matrix3x3 {
+  double a;
+  double b;
+  double c;
+  double d;
+  double e;
+  double f;
+  double g;
+  double h;
+  double i;
+}
+
+//////////////////////////////////////////////////////////////////////
+//                         Matrix2x2 Functions                      //
+//////////////////////////////////////////////////////////////////////
+
+/**
+ * Creates a 2x2 unit matrix in the form:
+ * 1.0 0.0
+ * 0.0 1.0
+ * Authors: eXodiquas
+ * Date: September 24, 2021
+ * Returns: The unit matrix of type `Matrix2x2`.
+ */
+Matrix2x2 unit2x2() {
+  return Matrix2x2(1.0, 0.0, 0.0, 1.0);
+}
+
+unittest {
+  assert(unit2x2() == Matrix2x2(1.0, 0.0, 0.0, 1.0));
+}
+
+/**
+ * Extract the row vectors of a given matrix. The vectors are read 
+ * like this:
+ * a b
+ * c d => (a, b), (c, d)
+ * Authors: eXodiquas
+ * Date: September 24, 2021
+ * Params:
+ *     m      = is the matrix from which the row vectors should be
+ *              be extracted.
+ * Returns: A `Vector2[]` containg all the row vectors.
+ */
+Vector2[] rowVectors(Matrix2x2 m) {
+  return [Vector2(m.a, m.b), Vector2(m.c, m.d)];
+}
+
+unittest {
+  auto a = Matrix2x2(1.0, 3.0, -4.0, 2.0);
+  assert(a.rowVectors() == [Vector2(1.0, 3.0), Vector2(-4.0, 2.0)]);
+}
+
+/**
+ * Extract the column vectors of a given matrix. The vectors are read 
+ * like this:
+ * a b
+ * c d => (a, c), (b, d)
+ * Authors: eXodiquas
+ * Date: September 24, 2021
+ * Params:
+ *     m      = is the matrix from which the column vectors should be
+ *              be extracted.
+ * Returns: A `Vector2[]` containg all the column vectors.
+ */
+Vector2[] colVectors(Matrix2x2 m) {
+  return [Vector2(m.a, m.c), Vector2(m.b, m.d)];
+}
+
+unittest {
+  auto a = Matrix2x2(1.0, 3.0, -4.0, 2.0);
+  assert(a.colVectors() == [Vector2(1.0, -4.0), Vector2(3.0, 2.0)]);
+}
+
+/**
+ * Scale a given `Matrix2x2` `m` by a given `scalar`.
+ * Authors: eXodiquas
+ * Date: September 24, 2021
+ * Params:
+ *     m      = is the matrix we want to scale.
+ *     scalar = is the amount we want to scale.
+ * Returns: A scaled version of our input `Matrix2x2` `m`.
+ */
+Matrix2x2 scale(Matrix2x2 m, double scalar) {
+  return Matrix2x2(m.a * scalar, m.b * scalar,
+		   m.c * scalar, m.d * scalar);
+}
+
+unittest {
+  auto a = Matrix2x2(1.0, 3.0, -4.0, 2.0);
+  assert(a.scale(5.0) == Matrix2x2(5.0, 15.0, -20.0, 10.0));
+}
+
+/**
+ * Mutliplies two `Matrix2x2` with eachother.
+ * Authors: eXodiquas
+ * Date: September 24, 2021
+ * Params:
+ *     m1      = is the left hand side matrix.
+ *     m2      = is the right hand side matrix.
+ * Returns: The resulting `Matrix2x2` from the multiplication.
+ */
+Matrix2x2 mult(Matrix2x2 m1, Matrix2x2 m2) {
+  return Matrix2x2(m1.a * m2.a + m1.b * m2.c,
+		   m1.a * m2.b + m1.b * m2.d,
+		   m1.c * m2.a + m1.d * m2.c,
+		   m1.c * m2.b + m1.d * m2.d);
+}
+
+unittest {
+  auto a = Matrix2x2(1.0, 3.0, -4.0, 2.0);
+  auto b = Matrix2x2(7.0, -3.0, -1.0, 5.0);
+  assert(a.mult(b) == Matrix2x2(4.0, 12.0, -30.0, 22.0));
+
+  auto c = Matrix2x2(1.0, 2.0, 3.0, 4.0);
+  auto d = Matrix2x2(5.0, 6.0, 7.0, 8.0);
+  assert(c.mult(d) == Matrix2x2(19.0, 22.0, 43.0, 50.0));
+}
+
+/**
+ * Mutliplies a `Matrix2x2` and a `Vector2` with eachother.
+ * Authors: eXodiquas
+ * Date: September 24, 2021
+ * Params:
+ *     m      = is the matrix.
+ *     v      = is the vector.
+ * Returns: The resulting `Vector2` from the multiplication.
+ */
+Vector2 mult(Matrix2x2 m, Vector2 v) {
+  return Vector2(m.a * v.x + m.b * v.y, m.c * v.x + m.d * v.y);
+}
+
+unittest {
+  auto a = Matrix2x2(1.0, 3.0, -4.0, 2.0);
+  auto b = Vector2(3.0, 2.0);
+  assert(a.mult(b) == Vector2(9.0, -8.0));
+}
+
+/**
+ * Rotates a given `Vector2` by an `angle` in radians in clockwise
+ * direction.
+ * Authors: eXodiquas
+ * Date: September 24, 2021
+ * Params:
+ *     v      = is the vector.
+ *     angle  = is the angle in radians.
+ * Returns: The resulting `Vector2` from the rotation.
+ */
+Vector2 rotateClockwise(Vector2 v, double angle) {
+  import std.math.trigonometry;
+  Matrix2x2 rotationMatrix = Matrix2x2( cos(-angle), sin(-angle),
+				       -sin(-angle), cos(-angle));
+
+  return rotationMatrix.mult(v);
+}
+
+/**
+ * Rotates a given `Vector2` by an `angle` in radians in counter 
+ * clockwise direction.
+ * Authors: eXodiquas
+ * Date: September 24, 2021
+ * Params:
+ *     v      = is the vector.
+ *     angle  = is the angle in radians.
+ * Returns: The resulting `Vector2` from the rotation.
+ */
+Vector2 rotateCounterClockwise(Vector2 v, double angle) {
+  import std.math.trigonometry;
+  Matrix2x2 rotationMatrix = Matrix2x2( cos(angle), sin(angle),
+				       -sin(angle), cos(angle));
+
+  return rotationMatrix.mult(v);
+}
+
+//////////////////////////////////////////////////////////////////////
+//                         Matrix3x3 Functions                      //
+//////////////////////////////////////////////////////////////////////
+
+/**
+ * Creates a 3x3 unit matrix in the form:
+ * 1.0 0.0 0.0
+ * 0.0 1.0 0.0
+ * 0.0 0.0 1.0
+ * Authors: eXodiquas
+ * Date: September 24, 2021
+ * Returns: The unit matrix of type `Matrix3x3`.
+ */
+Matrix3x3 unit3x3() {
+  return Matrix3x3(1.0, 0.0, 0.0,
+		   0.0, 1.0, 0.0,
+		   0.0, 0.0, 1.0);
+}
+
+unittest {
+  assert(unit3x3() == Matrix3x3(1.0, 0.0, 0.0,
+				0.0, 1.0, 0.0,
+				0.0, 0.0, 1.0));
+}
+
+/**
+ * Extract the row vectors of a given matrix. The vectors are read 
+ * like this:
+ * a b c
+ * d e f
+ * g h i => (a, b, c), (d, e, f), (g, h, i)
+ * Authors: eXodiquas
+ * Date: September 24, 2021
+ * Params:
+ *     m      = is the matrix from which the row vectors should be
+ *              be extracted.
+ * Returns: A `Vector3[]` containg all the row vectors.
+ */
+Vector3[] rowVectors(Matrix3x3 m) {
+  return [Vector3(m.a, m.b, m.c),
+	  Vector3(m.d, m.e, m.f),
+	  Vector3(m.g, m.h, m.i)];
+}
+
+unittest {
+  auto a = Matrix3x3(1.0,  3.0, -4.0,
+		     2.0,  5.1,  2.9,
+		     1.0, -4.9, -1.2);
+  assert(a.rowVectors() == [Vector3(1.0,  3.0, -4.0),
+			    Vector3(2.0,  5.1,  2.9),
+			    Vector3(1.0, -4.9, -1.2)]);
+}
+
+/**
+ * Extract the column vectors of a given matrix. The vectors are read 
+ * like this:
+ * a b c
+ * d e f
+ * g h i => (a, d, g), (b, e, h), (c, f, i)
+ * Authors: eXodiquas
+ * Date: September 24, 2021
+ * Params:
+ *     m      = is the matrix from which the column vectors should be
+ *              be extracted.
+ * Returns: A `Vector3[]` containg all the column vectors.
+ */
+Vector3[] colVectors(Matrix3x3 m) {
+  return [Vector3(m.a, m.d, m.g),
+	  Vector3(m.b, m.e, m.h),
+	  Vector3(m.c, m.f, m.i)];
+}
+
+unittest {
+  auto a = Matrix3x3(1.0,  3.0, -4.0,
+		     2.0,  5.1,  2.9,
+		     1.0, -4.9, -1.2);
+  assert(a.colVectors() == [Vector3( 1.0,  2.0,  1.0),
+			    Vector3( 3.0,  5.1, -4.9),
+			    Vector3(-4.0,  2.9, -1.2)]);
+}
+
+/**
+ * Scale a given `Matrix3x3` `m` by a given `scalar`.
+ * Authors: eXodiquas
+ * Date: September 24, 2021
+ * Params:
+ *     m      = is the matrix we want to scale.
+ *     scalar = is the amount we want to scale.
+ * Returns: A scaled version of our input `Matrix3x3` `m`.
+ */
+Matrix3x3 scale(Matrix3x3 m, double scalar) {
+  return Matrix3x3(m.a * scalar, m.b * scalar, m.c * scalar,
+		   m.d * scalar, m.e * scalar, m.f * scalar,
+		   m.g * scalar, m.h * scalar, m.i * scalar);
+}
+
+unittest {
+  auto a = Matrix3x3(1.0,  3.0, -4.0,
+		     2.0,  5.1,  3.0,
+		     1.0, -5.0, -1.2);
+  assert(a.scale(5.0) == Matrix3x3( 5.0,  15.0, -20.0,
+				   10.0,  25.5,  15.0,
+				    5.0, -25.0, - 6.0));
+}
+
+/**
+ * Mutliplies two `Matrix3x3` with eachother.
+ * Authors: eXodiquas
+ * Date: September 24, 2021
+ * Params:
+ *     m1      = is the left hand side matrix.
+ *     m2      = is the right hand side matrix.
+ * Returns: The resulting `Matrix3x3` from the multiplication.
+ */
+Matrix3x3 mult(Matrix3x3 m1, Matrix3x3 m2) {
+  double aN = m1.a * m2.a + m1.b * m2.d + m1.c * m2.g;
+  double bN = m1.a * m2.b + m1.b * m2.e + m1.c * m2.h;
+  double cN = m1.a * m2.c + m1.b * m2.f + m1.c * m2.i;
+  double dN = m1.d * m2.a + m1.e * m2.d + m1.f * m2.g;
+  double eN = m1.d * m2.b + m1.e * m2.e + m1.f * m2.h;
+  double fN = m1.d * m2.c + m1.e * m2.f + m1.f * m2.i;
+  double gN = m1.g * m2.a + m1.h * m2.d + m1.i * m2.g;
+  double hN = m1.g * m2.b + m1.h * m2.e + m1.i * m2.h;
+  double iN = m1.g * m2.c + m1.h * m2.f + m1.i * m2.i;
+  
+  return Matrix3x3(aN, bN, cN,
+		   dN, eN, fN,
+		   gN, hN, iN);
+}
+
+unittest {
+  auto a = Matrix3x3(1.0, 2.0, 3.0,
+		     4.0, 5.0, 6.0,
+		     7.0, 8.0, 9.0);
+  auto b = Matrix3x3(9.0, 8.0, 7.0,
+		     6.0, 5.0, 4.0,
+		     3.0, 2.0, 1.0);
+  
+  assert(a.mult(b) == Matrix3x3( 30.0,  24.0, 18.0,
+				 84.0,  69.0, 54.0,
+				138.0, 114.0, 90.0));
+}
+
+/**
+ * Mutliplies a `Matrix3x3` and a `Vector3` with eachother.
+ * Authors: eXodiquas
+ * Date: September 24, 2021
+ * Params:
+ *     m      = is the matrix.
+ *     v      = is the vector.
+ * Returns: The resulting `Vector3` from the multiplication.
+ */
+Vector3 mult(Matrix3x3 m, Vector3 v) {
+  return Vector3(m.a * v.x + m.b * v.y + m.c * v.z,
+		 m.d * v.x + m.e * v.y + m.f * v.z,
+		 m.g * v.x + m.h * v.y + m.i * v.z);
+}
+
+unittest {
+  auto a = Matrix3x3(1.0, 3.0, -4.0,
+		     2.0, 5.0,  2.0,
+		     1.0, 3.0,  7.0);
+  auto b = Vector3(3.0, 2.0, 4.0);
+  assert(a.mult(b) == Vector3(-7.0, 24, 37));
+}
+
+/**
+ * Rotates a given `Vector3` by an `angle` in radians in counter 
+ * clockwise direction around the x-axis.
+ * Authors: eXodiquas
+ * Date: September 24, 2021
+ * Params:
+ *     v      = is the vector.
+ *     angle  = is the angle in radians.
+ * Returns: The resulting `Vector3` from the rotation.
+ */
+Vector3 rotateX(Vector3 v, double angle) {
+  import std.math.trigonometry;
+  Matrix3x3 rotationMatrix =
+    Matrix3x3(1.0,        0.0,         0.0,
+	      0.0, cos(angle), -sin(angle),
+	      0.0, sin(angle),  cos(angle));
+
+  return rotationMatrix.mult(v);
+}
+
+/**
+ * Rotates a given `Vector3` by an `angle` in radians in counter 
+ * clockwise direction around the y-axis.
+ * Authors: eXodiquas
+ * Date: September 24, 2021
+ * Params:
+ *     v      = is the vector.
+ *     angle  = is the angle in radians.
+ * Returns: The resulting `Vector3` from the rotation.
+ */
+Vector3 rotateY(Vector3 v, double angle) {
+  import std.math.trigonometry;
+  Matrix3x3 rotationMatrix =
+    Matrix3x3( cos(angle), 0.0, sin(angle),
+	              0.0, 1.0,        0.0,
+	      -sin(angle), 0.0, cos(angle));
+
+  return rotationMatrix.mult(v);
+}
+
+/**
+ * Rotates a given `Vector3` by an `angle` in radians in counter 
+ * clockwise direction around the z-axis.
+ * Authors: eXodiquas
+ * Date: September 24, 2021
+ * Params:
+ *     v      = is the vector.
+ *     angle  = is the angle in radians.
+ * Returns: The resulting `Vector3` from the rotation.
+ */
+Vector3 rotateZ(Vector3 v, double angle) {
+  import std.math.trigonometry;
+  Matrix3x3 rotationMatrix =
+    Matrix3x3(cos(angle), -sin(angle), 0.0,
+	      sin(angle),  cos(angle), 0.0,
+	             0.0,         0.0, 1.0);
+
+  return rotationMatrix.mult(v);
 }
