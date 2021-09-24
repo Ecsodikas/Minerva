@@ -1,6 +1,6 @@
 # Minerva
 
-Minerva, named after the roman goddess of wisdom (and other stuff), is a dependency less (except phobos) D linear algebra library. Main goal is to make the library 100% pure, functional and safe.
+Minerva, named after the roman goddess of wisdom (and other stuff), is a dependency less (except phobos) D linear algebra library. Main goal is to make the library 100% pure, functional and safe, plus make it one single file.
 
 The main reason Minerva exists is to power Saturn, a complete D only ray tracer without interfacing with any C/C++ library at all.
 
