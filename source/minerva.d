@@ -503,7 +503,7 @@ immutable struct Matrix3x3 {
  * Date: September 24, 2021
  * Returns: The unit matrix of type `Matrix2x2`.
  */
-Matrix2x2 unit2x2() {
+Matrix2x2 unit2x2() pure nothrow @nogc @safe {
   return Matrix2x2(1.0, 0.0, 0.0, 1.0);
 }
 
@@ -523,7 +523,7 @@ unittest {
  *              be extracted.
  * Returns: A `Vector2[]` containg all the row vectors.
  */
-Vector2[] rowVectors(Matrix2x2 m) {
+Vector2[] rowVectors(Matrix2x2 m) pure nothrow @safe {
   return [Vector2(m.a, m.b), Vector2(m.c, m.d)];
 }
 
@@ -544,7 +544,7 @@ unittest {
  *              be extracted.
  * Returns: A `Vector2[]` containg all the column vectors.
  */
-Vector2[] colVectors(Matrix2x2 m) {
+Vector2[] colVectors(Matrix2x2 m) pure nothrow @safe {
   return [Vector2(m.a, m.c), Vector2(m.b, m.d)];
 }
 
@@ -562,7 +562,7 @@ unittest {
  *     scalar = is the amount we want to scale.
  * Returns: A scaled version of our input `Matrix2x2` `m`.
  */
-Matrix2x2 scale(Matrix2x2 m, double scalar) {
+Matrix2x2 scale(Matrix2x2 m, double scalar) pure nothrow @nogc @safe {
   return Matrix2x2(m.a * scalar, m.b * scalar,
 		   m.c * scalar, m.d * scalar);
 }
@@ -581,7 +581,7 @@ unittest {
  *     m2      = is the right hand side matrix.
  * Returns: The resulting `Matrix2x2` from the multiplication.
  */
-Matrix2x2 mult(Matrix2x2 m1, Matrix2x2 m2) {
+Matrix2x2 mult(Matrix2x2 m1, Matrix2x2 m2) pure nothrow @nogc @safe {
   return Matrix2x2(m1.a * m2.a + m1.b * m2.c,
 		   m1.a * m2.b + m1.b * m2.d,
 		   m1.c * m2.a + m1.d * m2.c,
@@ -607,7 +607,7 @@ unittest {
  *     v      = is the vector.
  * Returns: The resulting `Vector2` from the multiplication.
  */
-Vector2 mult(Matrix2x2 m, Vector2 v) {
+Vector2 mult(Matrix2x2 m, Vector2 v) pure nothrow @nogc @safe {
   return Vector2(m.a * v.x + m.b * v.y, m.c * v.x + m.d * v.y);
 }
 
@@ -627,7 +627,8 @@ unittest {
  *     angle  = is the angle in radians.
  * Returns: The resulting `Vector2` from the rotation.
  */
-Vector2 rotateClockwise(Vector2 v, double angle) {
+Vector2 rotateClockwise(Vector2 v, double angle)
+     pure nothrow @nogc @safe {
   import std.math.trigonometry;
   Matrix2x2 rotationMatrix = Matrix2x2( cos(-angle), sin(-angle),
 				       -sin(-angle), cos(-angle));
@@ -645,7 +646,8 @@ Vector2 rotateClockwise(Vector2 v, double angle) {
  *     angle  = is the angle in radians.
  * Returns: The resulting `Vector2` from the rotation.
  */
-Vector2 rotateCounterClockwise(Vector2 v, double angle) {
+Vector2 rotateCounterClockwise(Vector2 v, double angle)
+     pure nothrow @nogc @safe {
   import std.math.trigonometry;
   Matrix2x2 rotationMatrix = Matrix2x2( cos(angle), sin(angle),
 				       -sin(angle), cos(angle));
@@ -666,7 +668,7 @@ Vector2 rotateCounterClockwise(Vector2 v, double angle) {
  * Date: September 24, 2021
  * Returns: The unit matrix of type `Matrix3x3`.
  */
-Matrix3x3 unit3x3() {
+Matrix3x3 unit3x3() pure nothrow @nogc @safe {
   return Matrix3x3(1.0, 0.0, 0.0,
 		   0.0, 1.0, 0.0,
 		   0.0, 0.0, 1.0);
@@ -691,7 +693,7 @@ unittest {
  *              be extracted.
  * Returns: A `Vector3[]` containg all the row vectors.
  */
-Vector3[] rowVectors(Matrix3x3 m) {
+Vector3[] rowVectors(Matrix3x3 m) pure nothrow @safe {
   return [Vector3(m.a, m.b, m.c),
 	  Vector3(m.d, m.e, m.f),
 	  Vector3(m.g, m.h, m.i)];
@@ -719,7 +721,7 @@ unittest {
  *              be extracted.
  * Returns: A `Vector3[]` containg all the column vectors.
  */
-Vector3[] colVectors(Matrix3x3 m) {
+Vector3[] colVectors(Matrix3x3 m) pure nothrow @safe {
   return [Vector3(m.a, m.d, m.g),
 	  Vector3(m.b, m.e, m.h),
 	  Vector3(m.c, m.f, m.i)];
@@ -743,7 +745,7 @@ unittest {
  *     scalar = is the amount we want to scale.
  * Returns: A scaled version of our input `Matrix3x3` `m`.
  */
-Matrix3x3 scale(Matrix3x3 m, double scalar) {
+Matrix3x3 scale(Matrix3x3 m, double scalar) pure nothrow @nogc @safe {
   return Matrix3x3(m.a * scalar, m.b * scalar, m.c * scalar,
 		   m.d * scalar, m.e * scalar, m.f * scalar,
 		   m.g * scalar, m.h * scalar, m.i * scalar);
@@ -767,7 +769,7 @@ unittest {
  *     m2      = is the right hand side matrix.
  * Returns: The resulting `Matrix3x3` from the multiplication.
  */
-Matrix3x3 mult(Matrix3x3 m1, Matrix3x3 m2) {
+Matrix3x3 mult(Matrix3x3 m1, Matrix3x3 m2) pure nothrow @nogc @safe {
   double aN = m1.a * m2.a + m1.b * m2.d + m1.c * m2.g;
   double bN = m1.a * m2.b + m1.b * m2.e + m1.c * m2.h;
   double cN = m1.a * m2.c + m1.b * m2.f + m1.c * m2.i;
@@ -805,7 +807,7 @@ unittest {
  *     v      = is the vector.
  * Returns: The resulting `Vector3` from the multiplication.
  */
-Vector3 mult(Matrix3x3 m, Vector3 v) {
+Vector3 mult(Matrix3x3 m, Vector3 v) pure nothrow @nogc @safe {
   return Vector3(m.a * v.x + m.b * v.y + m.c * v.z,
 		 m.d * v.x + m.e * v.y + m.f * v.z,
 		 m.g * v.x + m.h * v.y + m.i * v.z);
@@ -829,7 +831,7 @@ unittest {
  *     angle  = is the angle in radians.
  * Returns: The resulting `Vector3` from the rotation.
  */
-Vector3 rotateX(Vector3 v, double angle) {
+Vector3 rotateX(Vector3 v, double angle) pure nothrow @nogc @safe {
   import std.math.trigonometry;
   Matrix3x3 rotationMatrix =
     Matrix3x3(1.0,        0.0,         0.0,
@@ -849,7 +851,7 @@ Vector3 rotateX(Vector3 v, double angle) {
  *     angle  = is the angle in radians.
  * Returns: The resulting `Vector3` from the rotation.
  */
-Vector3 rotateY(Vector3 v, double angle) {
+Vector3 rotateY(Vector3 v, double angle) pure nothrow @nogc @safe {
   import std.math.trigonometry;
   Matrix3x3 rotationMatrix =
     Matrix3x3( cos(angle), 0.0, sin(angle),
@@ -869,7 +871,7 @@ Vector3 rotateY(Vector3 v, double angle) {
  *     angle  = is the angle in radians.
  * Returns: The resulting `Vector3` from the rotation.
  */
-Vector3 rotateZ(Vector3 v, double angle) {
+Vector3 rotateZ(Vector3 v, double angle) pure nothrow @nogc @safe {
   import std.math.trigonometry;
   Matrix3x3 rotationMatrix =
     Matrix3x3(cos(angle), -sin(angle), 0.0,
