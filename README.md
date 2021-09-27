@@ -1,5 +1,7 @@
 # Minerva
 
+![example workflow](https://github.com/exodiquas/Minerva/actions/workflows/d.yml/badge.svg)
+
 !!! IMPORTANT !!! This library is still in beta, the functionality it has works fine, but it gets expanded and the interface is subject to change.
 
 Minerva, named after the roman goddess of wisdom (and other stuff), is a dependency less (except phobos) D linear algebra library. Main goal is to make the library 100% pure, functional and safe, plus make it one single file.
