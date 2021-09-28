@@ -26,7 +26,7 @@ Still work in progress...
 
 To start working with minerva, just add the dependency from dub into your project: [https://code.dlang.org/packages/minerva](https://code.dlang.org/packages/minerva).
 
-To use it in your project just import it like `import minerva` and you are ready to go. 2 and 3 dimensional vectors are implemented by hand, because they have some special use cases like cross product, dot product. To see all the functionalites you can look at the documentation.
+To use it in your project just import it like `import minerva` and you are ready to go. 2 and 3 dimensional vectors are implemented by hand, because they have some special use cases like the cross product. To see all the functionalites you can look at the documentation.
 
 See that every operation creates a new vector, so there is no mutation. This has several advantages, but also the downside of not being the most performant calculations possible. If you need high performance, please do not use this library.
 
