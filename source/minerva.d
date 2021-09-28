@@ -377,7 +377,7 @@ double angle(Vector3 v1, Vector3 v2) pure nothrow @nogc @safe {
   import std.math.trigonometry : acos;
   auto v1M = v1.mag();
   auto v2M = v2.mag();
-  return acos(v1.dot(v2) / v1M * v2M);
+  return acos(v1.dot(v2) / (v1M * v2M));
 }
 
 unittest {
@@ -1033,6 +1033,55 @@ unittest {
 }
 
 /**
+ * Calculates the dot product of `v1` and `v2`.
+ * Authors: eXodiquas
+ * Date: September 28, 2021
+ * Params:
+ *     v1      = is the left hand side of the calculation.
+ *     v2      = is the right hand side of the calculation.
+ * Returns: A `double` representing the dot product of `v1` and `v2`.
+ */
+double dot(size_t dim)(Vector!dim v1, Vector!dim v2)
+     pure @safe {
+  double result = 0.0;
+  foreach(i, e; v1.components) {
+    result += e * v2.components[i];
+  }
+  return result;
+}
+
+unittest {
+  auto a = Vector!5([1, 2, 3, 4, 5]);
+  auto b = Vector!5([3, 4, 5, 6, 7]);
+  assert(a.dot(b) == 85);
+}
+
+/**
+ * Calculates the angle between `v1` and `v2`.
+ * Authors: eXodiquas
+ * Date: September 28, 2021
+ * Params:
+ *     v1      = is the first vector.
+ *     v2      = is the second vector.
+ * Returns: A `double` in radians representing the angle between
+ *          `v1` and 'v2'.
+ */
+double angle(size_t dim)(Vector!dim v1, Vector!dim v2)
+     pure @safe {
+  import std.math.trigonometry : acos;
+  auto v1M = v1.mag();
+  auto v2M = v2.mag();
+  import std;
+  return acos(v1.dot(v2) / (v1M * v2M));
+}
+
+unittest {
+  auto a = Vector!4([1, 2, 3, 5]);
+  auto b = Vector!4([3, 4, 5, 7]);
+  assert(a.angle(b) < 0.2 && a.angle(b) > 0.19);
+}
+
+/**
  * Adds a dimension to `v`, making it a `Vector!(dim + 1)`.
  * The new dimension has default value 0.0.
  * Authors: eXodiquas
@@ -1052,3 +1101,5 @@ unittest {
   Vector!5 b = a.upgrade();
   assert(b == Vector!5([2, 2, 2, 2, 0]));
 }
+
+
