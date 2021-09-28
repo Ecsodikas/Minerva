@@ -539,6 +539,20 @@
   <p class="para">
     Enum representing the single components of a <code class="code">Vector3</code>.
  (Only used for the <code class="code">downgrade</code> function.)
+
+  </p>
+</div>
+<div class="ddoc_authors">
+  <h4>Authors</h4>
+  <p class="para">
+    eXodiquas
+
+  </p>
+</div>
+<div class="ddoc_date">
+  <h4>Date</h4>
+  <p class="para">
+    September 24, 2021
   </p>
 </div>
 
@@ -570,7 +584,21 @@
   <section class="section ddoc_sections">
   <div class="ddoc_summary">
   <p class="para">
-    Struct representing a 2 dimensional vector.
+    Struct representing a 2-dimensional vector.
+
+  </p>
+</div>
+<div class="ddoc_authors">
+  <h4>Authors</h4>
+  <p class="para">
+    eXodiquas
+
+  </p>
+</div>
+<div class="ddoc_date">
+  <h4>Date</h4>
+  <p class="para">
+    September 24, 2021
   </p>
 </div>
 
@@ -602,7 +630,21 @@
   <section class="section ddoc_sections">
   <div class="ddoc_summary">
   <p class="para">
-    Struct representing a 3 dimensional vector.
+    Struct representing a 3-dimensional vector.
+
+  </p>
+</div>
+<div class="ddoc_authors">
+  <h4>Authors</h4>
+  <p class="para">
+    eXodiquas
+
+  </p>
+</div>
+<div class="ddoc_date">
+  <h4>Date</h4>
+  <p class="para">
+    September 24, 2021
   </p>
 </div>
 
@@ -3798,6 +3840,559 @@
   <h4>Return Value</h4>
   <p class="para">
     The resulting <code class="code">Vector3</code> from the rotation.
+  </p>
+</div>
+
+</section>
+
+</div>
+
+</li><li class="ddoc_member">
+  <div class="ddoc_member_header">
+  <div class="ddoc_header_anchor">
+  <a href="#Vector" id="Vector"><code class="code">Vector</code></a>
+</div>
+</div><div class="ddoc_decl">
+  <section class="section">
+    <div class="declaration">
+      <h4>Declaration</h4>
+      <div class="dlang">
+        <p class="para">
+          <code class="code">
+            <span class="ddoc_anchor" id="Vector"></span>struct <code class="code">Vector</code>(size_t dimension);
+
+          </code>
+        </p>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="ddoc_decl">
+  <section class="section ddoc_sections">
+  <div class="ddoc_summary">
+  <p class="para">
+    Struct representing a N-dimensional vector.
+ This struct only works for vectors with more than 3 dimensions.
+
+  </p>
+</div>
+<div class="ddoc_authors">
+  <h4>Authors</h4>
+  <p class="para">
+    eXodiquas
+
+  </p>
+</div>
+<div class="ddoc_date">
+  <h4>Date</h4>
+  <p class="para">
+    September 28, 2021
+
+  </p>
+</div>
+<div class="ddoc_examples">
+  <h4>Examples</h4>
+  <p class="para">
+    
+<section class="code_listing">
+  <div class="code_sample">
+    <div class="dlang">
+      <ol class="code_lines">
+        <li><code class="code"><span class="psymbol">Vector</span>!5 v = <span class="psymbol">Vector</span>!5([1,2,3,4,5]);
+v.x0.writeln; <span class="comment">// 1
+</span>v.x1.writeln; <span class="comment">// 2
+</span></code></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+  </p>
+</div><div class="ddoc_throws">
+  <h4>Throws</h4>
+  <p class="para">
+    Exception whenever the supplied list of values has not
+ the same length as the supplied dimension of the vector or when the
+ supplied dimension is less than 4.
+  </p>
+</div>
+</section>
+
+</div>
+
+</li><li class="ddoc_member">
+  <div class="ddoc_member_header">
+  <div class="ddoc_header_anchor">
+  <a href="#zeroN" id="zeroN"><code class="code">zeroN</code></a>
+</div>
+</div><div class="ddoc_decl">
+  <section class="section">
+    <div class="declaration">
+      <h4>Declaration</h4>
+      <div class="dlang">
+        <p class="para">
+          <code class="code">
+            <span class="ddoc_anchor" id="zeroN"></span>pure @safe Vector!dim <code class="code">zeroN</code>(size_t dim)();
+
+          </code>
+        </p>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="ddoc_decl">
+  <section class="section ddoc_sections">
+  <div class="ddoc_summary">
+  <p class="para">
+    Creates a <code class="code">Vector!dim</code> filled with <code class="code">dim</code> <code class="code">0.0</code>s.
+
+  </p>
+</div>
+<div class="ddoc_authors">
+  <h4>Authors</h4>
+  <p class="para">
+    eXodiquas
+
+  </p>
+</div>
+<div class="ddoc_date">
+  <h4>Date</h4>
+  <p class="para">
+    September 28, 2021
+
+  </p>
+</div>
+<div class="ddoc_params">
+  <h4>Parameters</h4>
+  <table cellspacing="0" cellpadding="5" border="0" class="graybox">
+    <tbody>
+      <tr class="ddoc_param_row">
+  <td scope="ddoc_param_id">
+  <code class="code">
+    <em class="term">dim</em>
+  </code>
+</td>
+<td>
+  <div class="ddoc_param_desc">
+    <p class="para">
+      is the number of dimensions.
+    </p>
+  </div>
+</td>
+</tr>
+
+    </tbody>
+  </table>
+</div>
+<div class="ddoc_returns">
+  <h4>Return Value</h4>
+  <p class="para">
+    A <code class="code">Vector!dim</code> filled with <code class="code">dim</code> <code class="code">0.0</code>s.
+  </p>
+</div>
+
+</section>
+
+</div>
+
+</li><li class="ddoc_member">
+  <div class="ddoc_member_header">
+  <div class="ddoc_header_anchor">
+  <a href="#add" id="add"><code class="code">add</code></a>
+</div>
+</div><div class="ddoc_decl">
+  <section class="section">
+    <div class="declaration">
+      <h4>Declaration</h4>
+      <div class="dlang">
+        <p class="para">
+          <code class="code">
+            <span class="ddoc_anchor" id="add.3"></span>pure @safe Vector!dim <code class="code">add</code>(size_t dim)(Vector!dim <code class="code">v1</code>, Vector!dim <code class="code">v2</code>);
+
+          </code>
+        </p>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="ddoc_decl">
+  <section class="section ddoc_sections">
+  <div class="ddoc_summary">
+  <p class="para">
+    Adds two <code class="code">Vector!dim</code> with the same dimensions component wise.
+
+  </p>
+</div>
+<div class="ddoc_authors">
+  <h4>Authors</h4>
+  <p class="para">
+    eXodiquas
+
+  </p>
+</div>
+<div class="ddoc_date">
+  <h4>Date</h4>
+  <p class="para">
+    September 28, 2021
+
+  </p>
+</div>
+<div class="ddoc_params">
+  <h4>Parameters</h4>
+  <table cellspacing="0" cellpadding="5" border="0" class="graybox">
+    <tbody>
+      <tr class="ddoc_param_row">
+  <td scope="ddoc_param_id">
+  <code class="code">
+    <em class="term">lhs</em>
+  </code>
+</td>
+<td>
+  <div class="ddoc_param_desc">
+    <p class="para">
+      is the left hand side of the addition.
+    </p>
+  </div>
+</td>
+</tr>
+<tr class="ddoc_param_row">
+  <td scope="ddoc_param_id">
+  <code class="code">
+    <em class="term">rhs</em>
+  </code>
+</td>
+<td>
+  <div class="ddoc_param_desc">
+    <p class="para">
+      is the right hand side of the addition.
+    </p>
+  </div>
+</td>
+</tr>
+
+    </tbody>
+  </table>
+</div>
+<div class="ddoc_returns">
+  <h4>Return Value</h4>
+  <p class="para">
+    A <code class="code">Vector!dim</code> representing the addition of <code class="code"><code class="code">v1</code></code> and <code class="code"><code class="code">v2</code></code>.
+  </p>
+</div>
+
+</section>
+
+</div>
+
+</li><li class="ddoc_member">
+  <div class="ddoc_member_header">
+  <div class="ddoc_header_anchor">
+  <a href="#scale" id="scale"><code class="code">scale</code></a>
+</div>
+</div><div class="ddoc_decl">
+  <section class="section">
+    <div class="declaration">
+      <h4>Declaration</h4>
+      <div class="dlang">
+        <p class="para">
+          <code class="code">
+            <span class="ddoc_anchor" id="scale.5"></span>pure @safe Vector!dim <code class="code">scale</code>(size_t dim)(Vector!dim <code class="code">v</code>, double <code class="code">scalar</code>);
+
+          </code>
+        </p>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="ddoc_decl">
+  <section class="section ddoc_sections">
+  <div class="ddoc_summary">
+  <p class="para">
+    Scales a vector <code class="code"><code class="code">v</code></code> by a given number <code class="code"><code class="code">scalar</code></code>.
+
+  </p>
+</div>
+<div class="ddoc_authors">
+  <h4>Authors</h4>
+  <p class="para">
+    eXodiquas
+
+  </p>
+</div>
+<div class="ddoc_date">
+  <h4>Date</h4>
+  <p class="para">
+    September 28, 2021
+
+  </p>
+</div>
+<div class="ddoc_params">
+  <h4>Parameters</h4>
+  <table cellspacing="0" cellpadding="5" border="0" class="graybox">
+    <tbody>
+      <tr class="ddoc_param_row">
+  <td scope="ddoc_param_id">
+  <code class="code">
+    <em class="term">Vector!dim <code class="code">v</code></em>
+  </code>
+</td>
+<td>
+  <div class="ddoc_param_desc">
+    <p class="para">
+      is the vector to <code class="code">scale</code>.
+    </p>
+  </div>
+</td>
+</tr>
+<tr class="ddoc_param_row">
+  <td scope="ddoc_param_id">
+  <code class="code">
+    <em class="term">double <code class="code">scalar</code></em>
+  </code>
+</td>
+<td>
+  <div class="ddoc_param_desc">
+    <p class="para">
+      is the amount the vector gets scaled.
+    </p>
+  </div>
+</td>
+</tr>
+
+    </tbody>
+  </table>
+</div>
+<div class="ddoc_returns">
+  <h4>Return Value</h4>
+  <p class="para">
+    A <code class="code">Vector!dim</code> representing the scaled version of <code class="code"><code class="code">v</code></code>.
+  </p>
+</div>
+
+</section>
+
+</div>
+
+</li><li class="ddoc_member">
+  <div class="ddoc_member_header">
+  <div class="ddoc_header_anchor">
+  <a href="#mag" id="mag"><code class="code">mag</code></a>
+</div>
+</div><div class="ddoc_decl">
+  <section class="section">
+    <div class="declaration">
+      <h4>Declaration</h4>
+      <div class="dlang">
+        <p class="para">
+          <code class="code">
+            <span class="ddoc_anchor" id="mag.3"></span>pure @safe double <code class="code">mag</code>(size_t dim)(Vector!dim <code class="code">v</code>);
+
+          </code>
+        </p>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="ddoc_decl">
+  <section class="section ddoc_sections">
+  <div class="ddoc_summary">
+  <p class="para">
+    Calculates the magnitude (or length) of <code class="code"><code class="code">v</code></code>.
+
+  </p>
+</div>
+<div class="ddoc_authors">
+  <h4>Authors</h4>
+  <p class="para">
+    eXodiquas
+
+  </p>
+</div>
+<div class="ddoc_date">
+  <h4>Date</h4>
+  <p class="para">
+    September 28, 2021
+
+  </p>
+</div>
+<div class="ddoc_params">
+  <h4>Parameters</h4>
+  <table cellspacing="0" cellpadding="5" border="0" class="graybox">
+    <tbody>
+      <tr class="ddoc_param_row">
+  <td scope="ddoc_param_id">
+  <code class="code">
+    <em class="term">Vector!dim <code class="code">v</code></em>
+  </code>
+</td>
+<td>
+  <div class="ddoc_param_desc">
+    <p class="para">
+      is the vector we want the magnitude of.
+    </p>
+  </div>
+</td>
+</tr>
+
+    </tbody>
+  </table>
+</div>
+<div class="ddoc_returns">
+  <h4>Return Value</h4>
+  <p class="para">
+    A <code class="code">double</code> representing the magnitude of <code class="code"><code class="code">v</code></code>.
+  </p>
+</div>
+
+</section>
+
+</div>
+
+</li><li class="ddoc_member">
+  <div class="ddoc_member_header">
+  <div class="ddoc_header_anchor">
+  <a href="#norm" id="norm"><code class="code">norm</code></a>
+</div>
+</div><div class="ddoc_decl">
+  <section class="section">
+    <div class="declaration">
+      <h4>Declaration</h4>
+      <div class="dlang">
+        <p class="para">
+          <code class="code">
+            <span class="ddoc_anchor" id="norm.3"></span>pure @safe Vector!dim <code class="code">norm</code>(size_t dim)(Vector!dim <code class="code">v</code>);
+
+          </code>
+        </p>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="ddoc_decl">
+  <section class="section ddoc_sections">
+  <div class="ddoc_summary">
+  <p class="para">
+    Calculates the normalized version of <code class="code"><code class="code">v</code></code>.
+
+  </p>
+</div>
+<div class="ddoc_authors">
+  <h4>Authors</h4>
+  <p class="para">
+    eXodiquas
+
+  </p>
+</div>
+<div class="ddoc_date">
+  <h4>Date</h4>
+  <p class="para">
+    September 28, 2021
+
+  </p>
+</div>
+<div class="ddoc_params">
+  <h4>Parameters</h4>
+  <table cellspacing="0" cellpadding="5" border="0" class="graybox">
+    <tbody>
+      <tr class="ddoc_param_row">
+  <td scope="ddoc_param_id">
+  <code class="code">
+    <em class="term">Vector!dim <code class="code">v</code></em>
+  </code>
+</td>
+<td>
+  <div class="ddoc_param_desc">
+    <p class="para">
+      is the vector we want to normalize.
+    </p>
+  </div>
+</td>
+</tr>
+
+    </tbody>
+  </table>
+</div>
+<div class="ddoc_returns">
+  <h4>Return Value</h4>
+  <p class="para">
+    A <code class="code">Vector!dim</code> representing the normalized version of <code class="code"><code class="code">v</code></code>.
+  </p>
+</div>
+
+</section>
+
+</div>
+
+</li><li class="ddoc_member">
+  <div class="ddoc_member_header">
+  <div class="ddoc_header_anchor">
+  <a href="#upgrade" id="upgrade"><code class="code">upgrade</code></a>
+</div>
+</div><div class="ddoc_decl">
+  <section class="section">
+    <div class="declaration">
+      <h4>Declaration</h4>
+      <div class="dlang">
+        <p class="para">
+          <code class="code">
+            <span class="ddoc_anchor" id="upgrade.2"></span>pure @safe Vector!(dim + 1) <code class="code">upgrade</code>(size_t dim)(Vector!dim <code class="code">v</code>);
+
+          </code>
+        </p>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="ddoc_decl">
+  <section class="section ddoc_sections">
+  <div class="ddoc_summary">
+  <p class="para">
+    Adds a dimension to <code class="code"><code class="code">v</code></code>, making it a <code class="code">Vector!(dim + 1)</code>.
+ The new dimension has default value 0.0.
+
+  </p>
+</div>
+<div class="ddoc_authors">
+  <h4>Authors</h4>
+  <p class="para">
+    eXodiquas
+
+  </p>
+</div>
+<div class="ddoc_date">
+  <h4>Date</h4>
+  <p class="para">
+    September 28, 2021
+
+  </p>
+</div>
+<div class="ddoc_params">
+  <h4>Parameters</h4>
+  <table cellspacing="0" cellpadding="5" border="0" class="graybox">
+    <tbody>
+      <tr class="ddoc_param_row">
+  <td scope="ddoc_param_id">
+  <code class="code">
+    <em class="term">Vector!dim <code class="code">v</code></em>
+  </code>
+</td>
+<td>
+  <div class="ddoc_param_desc">
+    <p class="para">
+      is the vector we want to add a new dimension.
+    </p>
+  </div>
+</td>
+</tr>
+
+    </tbody>
+  </table>
+</div>
+<div class="ddoc_returns">
+  <h4>Return Value</h4>
+  <p class="para">
+    A <code class="code">Vector!(dim + 1)</code> with an additional <code class="code">0.0</code> as
+ a component.
   </p>
 </div>
 
