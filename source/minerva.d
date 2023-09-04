@@ -107,7 +107,7 @@ unittest
  */
 double mag(Vector2 v) pure nothrow @nogc @safe
 {
-  import std.math.algebraic : sqrt;
+  import std.math : sqrt;
 
   return (v.x * v.x + v.y * v.y).sqrt();
 }
@@ -201,7 +201,7 @@ unittest
  */
 double angle(Vector2 v1, Vector2 v2) pure nothrow @nogc @safe
 {
-  import std.math.trigonometry : acos;
+  import std.math : acos;
 
   auto v1N = v1.norm();
   auto v2N = v2.norm();
@@ -212,7 +212,7 @@ unittest
 {
   auto a = Vector2(5.0, 0.0);
   auto b = Vector2(0.0, 5.0);
-  import std.math.rounding : round;
+  import std.math : round;
 
   assert(a.angle(b).round() == 2);
 }
@@ -327,7 +327,7 @@ unittest
  */
 double mag(Vector3 v) pure nothrow @nogc @safe
 {
-  import std.math.algebraic : sqrt;
+  import std.math : sqrt;
 
   return (v.x * v.x + v.y * v.y + v.z * v.z).sqrt();
 }
@@ -425,7 +425,7 @@ unittest
  */
 double angle(Vector3 v1, Vector3 v2) pure nothrow @nogc @safe
 {
-  import std.math.trigonometry : acos;
+  import std.math : acos;
 
   auto v1M = v1.mag();
   auto v2M = v2.mag();
@@ -436,7 +436,7 @@ unittest
 {
   auto a = Vector3(5.0, 0.0, 0.0);
   auto b = Vector3(0.0, 5.0, 0.0);
-  import std.math.rounding : round;
+  import std.math : round;
 
   assert(a.angle(b).round() == 2);
 }
@@ -711,7 +711,7 @@ unittest
 Vector2 rotateClockwise(Vector2 v, double angle)
 pure nothrow @nogc @safe
 {
-  import std.math.trigonometry;
+  import std.math;
 
   Matrix2x2 rotationMatrix = Matrix2x2(cos(-angle), sin(-angle),
     -sin(-angle), cos(-angle));
@@ -732,7 +732,7 @@ pure nothrow @nogc @safe
 Vector2 rotateCounterClockwise(Vector2 v, double angle)
 pure nothrow @nogc @safe
 {
-  import std.math.trigonometry;
+  import std.math;
 
   Matrix2x2 rotationMatrix = Matrix2x2(cos(angle), sin(angle),
     -sin(angle), cos(angle));
@@ -938,7 +938,7 @@ unittest
  */
 Vector3 rotateX(Vector3 v, double angle) pure nothrow @nogc @safe
 {
-  import std.math.trigonometry;
+  import std.math;
 
   Matrix3x3 rotationMatrix =
     Matrix3x3(1.0, 0.0, 0.0,
@@ -960,7 +960,7 @@ Vector3 rotateX(Vector3 v, double angle) pure nothrow @nogc @safe
  */
 Vector3 rotateY(Vector3 v, double angle) pure nothrow @nogc @safe
 {
-  import std.math.trigonometry;
+  import std.math;
 
   Matrix3x3 rotationMatrix =
     Matrix3x3(cos(angle), 0.0, sin(angle),
@@ -982,7 +982,7 @@ Vector3 rotateY(Vector3 v, double angle) pure nothrow @nogc @safe
  */
 Vector3 rotateZ(Vector3 v, double angle) pure nothrow @nogc @safe
 {
-  import std.math.trigonometry;
+  import std.math;
 
   Matrix3x3 rotationMatrix =
     Matrix3x3(cos(angle), -sin(angle), 0.0,
@@ -1133,7 +1133,7 @@ double mag(size_t dim)(Vector!dim v) pure @safe
 
 unittest
 {
-  import std.math.algebraic : sqrt;
+  import std.math : sqrt;
 
   Vector!5 a = Vector!5([1, 2, 3, 4, 5]);
   assert(a.mag() == sqrt(55.0));
@@ -1203,7 +1203,7 @@ unittest
 double angle(size_t dim)(Vector!dim v1, Vector!dim v2)
 pure @safe
 {
-  import std.math.trigonometry : acos;
+  import std.math : acos;
 
   auto v1M = v1.mag();
   auto v2M = v2.mag();
@@ -1240,4 +1240,64 @@ unittest
   Vector!4 a = Vector!4([2, 2, 2, 2]);
   Vector!5 b = a.upgrade();
   assert(b == Vector!5([2, 2, 2, 2, 0]));
+}
+
+//////////////////////////////////////////////////////////////////////
+//                MxN-Dimensional Matrix Data Structures            //
+//////////////////////////////////////////////////////////////////////
+
+/**
+ * Struct representing a MxN-dimensional matrix.
+ * Authors: eXodiquas
+ * Date: September 4, 2023
+ * Examples:
+ * -------------------------------------------------------------------
+ * Matrix!(5, 5) v = Matrix!(5,5)([[1,2,3,4,5], [1,2,3,4,5], [1,2,3,4,5], [1,2,3,4,5], [1,2,3,4,5]]);
+ * assert(v.ex0y0 == 1)
+ * -------------------------------------------------------------------
+ * Throws: Exception whenever the supplied nested lists of values have not
+ * the same dimensions as the supplied dimensions of the matrix.
+ * 
+ * Special Behaviours: Jagged arrays as initialisers could lead to unexpected behaviour.
+ */
+
+struct Matrix(size_t M, size_t N)
+{
+  double[N][M] components;
+
+  this(double[][] init)
+  {
+    foreach (i, y; components)
+    {
+      foreach (j, x; components)
+      {
+        components[i][j] = init[i][j];
+      }
+    }
+  }
+
+  import std.format : format;
+
+  static foreach (y; 0 .. N)
+  {
+    static foreach (x; 0 .. M)
+    {
+      mixin(format!"double ex%sy%s() {return this.components[%s][%s];}"(x, y, y, x));
+    }
+  }
+}
+
+unittest
+{
+  Matrix!(5, 5) m = Matrix!(5, 5)([
+    [1.0, 2.0, 3.0, 4.0, 5.0],
+    [6.0, 7.0, 8.0, 9.0, 10.0],
+    [1.0, 2.0, 3.0, 4.0, 5.0],
+    [6.0, 7.0, 8.0, 9.0, 10.0],
+    [1.0, 2.0, 3.0, 4.0, 5.0]
+  ]);
+  assert(m.ex0y1 == 6.0);
+  assert(m.ex1y3 == 7.0);
+  assert(m.ex4y1 == 10.0);
+  assert(m.ex0y0 == 1.0);
 }
