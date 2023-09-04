@@ -8,28 +8,35 @@
  * Authors: eXodiquas
  * Date: September 24, 2021
  */
-enum Vector3Pos {X, Y, Z}
+enum Vector3Pos
+{
+  X,
+  Y,
+  Z
+}
 
 /**
  * Struct representing a 2-dimensional vector.
  * Authors: eXodiquas
  * Date: September 24, 2021
  */
-immutable struct Vector2 {
+immutable struct Vector2
+{
   double x;
   double y;
-} 
+}
 
 /**
  * Struct representing a 3-dimensional vector.
  * Authors: eXodiquas
  * Date: September 24, 2021
  */
-immutable struct Vector3 {
+immutable struct Vector3
+{
   double x;
   double y;
   double z;
-} 
+}
 
 //////////////////////////////////////////////////////////////////////
 //                          Vector2 Functions                       //
@@ -41,7 +48,8 @@ immutable struct Vector3 {
  * Date: September 24, 2021
  * Returns: Vector2(0.0, 0.0)
  */
-Vector2 zero2() pure nothrow @nogc @safe {
+Vector2 zero2() pure nothrow @nogc @safe
+{
   return Vector2(0.0, 0.0);
 }
 
@@ -54,11 +62,13 @@ Vector2 zero2() pure nothrow @nogc @safe {
  *     v2 = is the right hand side of the addition.
  * Returns: A `Vector2` representing the addition of `v1` and `v2`.
  */
-Vector2 add(Vector2 v1, Vector2 v2) pure nothrow @nogc @safe {
+Vector2 add(Vector2 v1, Vector2 v2) pure nothrow @nogc @safe
+{
   return Vector2(v1.x + v2.x, v1.y + v2.y);
 }
 
-unittest {
+unittest
+{
   auto a = Vector2(5.0, 3.0);
   auto b = Vector2(2.0, 1.0);
   auto c = a.add(b);
@@ -74,11 +84,13 @@ unittest {
  *     scalar = is the amount the vector gets scaled.
  * Returns: A `Vector2` representing the scaled version of `v`.
  */
-Vector2 scale(Vector2 v, double scalar) pure nothrow @nogc @safe {
+Vector2 scale(Vector2 v, double scalar) pure nothrow @nogc @safe
+{
   return Vector2(v.x * scalar, v.y * scalar);
 }
 
-unittest {
+unittest
+{
   auto a = Vector2(5.0, 3.0);
   auto c = a.scale(2.0);
   assert(Vector2(10.0, 6.0) == c);
@@ -93,12 +105,15 @@ unittest {
  *     v      = is the vector we want the magnitude of.
  * Returns: A `double` representing the magnitude of `v`.
  */
-double mag(Vector2 v) pure nothrow @nogc @safe {
+double mag(Vector2 v) pure nothrow @nogc @safe
+{
   import std.math.algebraic : sqrt;
+
   return (v.x * v.x + v.y * v.y).sqrt();
 }
 
-unittest {
+unittest
+{
   auto a = Vector2(5.0, 0.0);
   auto b = Vector2(3.0, 4.0);
   assert(a.mag() == 5.0);
@@ -114,12 +129,17 @@ unittest {
  *     v      = is the vector we want to normalize.
  * Returns: A `Vector2` representing the normalized version of `v`.
  */
-Vector2 norm(Vector2 v) pure nothrow @nogc @safe {
-  if (v == zero2()) { return zero2(); }
+Vector2 norm(Vector2 v) pure nothrow @nogc @safe
+{
+  if (v == zero2())
+  {
+    return zero2();
+  }
   return v.scale(1.0 / v.mag());
 }
 
-unittest {
+unittest
+{
   auto a = Vector2(5.0, 0.0);
   assert(a.norm() == Vector2(1.0, 0.0));
   assert(zero2().norm() == zero2());
@@ -135,11 +155,13 @@ unittest {
  * Returns: A `double` representing the cross product 
  *          of `v1` and 'v2'.
  */
-double cross(Vector2 v1, Vector2 v2) pure nothrow @nogc @safe {
+double cross(Vector2 v1, Vector2 v2) pure nothrow @nogc @safe
+{
   return v1.x * v2.y - v2.x * v1.y;
 }
 
-unittest {
+unittest
+{
   auto a = Vector2(5.0, 1.0);
   auto b = Vector2(2.0, 3.0);
   assert(a.cross(b) == 13.0);
@@ -155,11 +177,13 @@ unittest {
  * Returns: A `double` representing the dot product 
  *          of `v1` and 'v2'.
  */
-double dot(Vector2 v1, Vector2 v2) pure nothrow @nogc @safe {
+double dot(Vector2 v1, Vector2 v2) pure nothrow @nogc @safe
+{
   return v1.x * v2.x + v1.y * v2.y;
 }
 
-unittest {
+unittest
+{
   auto a = Vector2(5.0, 2.0);
   auto b = Vector2(4.0, 5.0);
   assert(a.dot(b) == 30.0);
@@ -175,17 +199,21 @@ unittest {
  * Returns: A `double` in radians representing the angle between
  *          `v1` and 'v2'.
  */
-double angle(Vector2 v1, Vector2 v2) pure nothrow @nogc @safe {
+double angle(Vector2 v1, Vector2 v2) pure nothrow @nogc @safe
+{
   import std.math.trigonometry : acos;
+
   auto v1N = v1.norm();
   auto v2N = v2.norm();
   return acos(v1N.dot(v2N));
 }
 
-unittest {
+unittest
+{
   auto a = Vector2(5.0, 0.0);
   auto b = Vector2(0.0, 5.0);
   import std.math.rounding : round;
+
   assert(a.angle(b).round() == 2);
 }
 
@@ -197,13 +225,15 @@ unittest {
  *     v      = is the vector we want to swap.
  * Returns: A `Vector2` with swapped components in comparison to `v`.
  */
-Vector2 swap(Vector2 v) pure nothrow @nogc @safe {
+Vector2 swap(Vector2 v) pure nothrow @nogc @safe
+{
   auto xN = v.y;
   auto yN = v.x;
   return Vector2(xN, yN);
 }
 
-unittest {
+unittest
+{
   auto a = Vector2(5.0, 0.0);
   assert(a.swap() == Vector2(0.0, 5.0));
 }
@@ -217,11 +247,13 @@ unittest {
  *     v      = is the vector we want to add a new dimension.
  * Returns: A `Vector3` with `v`s x and y value und z equals to 0.0.
  */
-Vector3 upgrade(Vector2 v) pure nothrow @nogc @safe {
+Vector3 upgrade(Vector2 v) pure nothrow @nogc @safe
+{
   return Vector3(v.x, v.y, 0.0);
 }
 
-unittest {
+unittest
+{
   auto a = Vector2(5.0, 0.0);
   assert(a.upgrade() == Vector3(5.0, 0.0, 0.0));
 }
@@ -236,7 +268,8 @@ unittest {
  * Date: September 24, 2021
  * Returns: Vector3(0.0, 0.0, 0.0)
  */
-Vector3 zero3() pure nothrow @nogc @safe {
+Vector3 zero3() pure nothrow @nogc @safe
+{
   return Vector3(0.0, 0.0, 0.0);
 }
 
@@ -249,11 +282,13 @@ Vector3 zero3() pure nothrow @nogc @safe {
  *     v2 = is the right hand side of the addition.
  * Returns: A `Vector3` representing the addition of `v1` and `v2`.
  */
-Vector3 add(Vector3 v1, Vector3 v2) pure nothrow @nogc @safe {
+Vector3 add(Vector3 v1, Vector3 v2) pure nothrow @nogc @safe
+{
   return Vector3(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
 }
 
-unittest {
+unittest
+{
   auto a = Vector3(5.0, 3.0, -4.0);
   auto b = Vector3(2.0, 1.0, 2.0);
   auto c = a.add(b);
@@ -269,11 +304,13 @@ unittest {
  *     scalar = is the amount the vector gets scaled.
  * Returns: A `Vector3` representing the scaled version of `v`.
  */
-Vector3 scale(Vector3 v, double scalar) pure nothrow @nogc @safe {
+Vector3 scale(Vector3 v, double scalar) pure nothrow @nogc @safe
+{
   return Vector3(v.x * scalar, v.y * scalar, v.z * scalar);
 }
 
-unittest {
+unittest
+{
   auto a = Vector3(5.0, 3.0, 2.0);
   auto c = a.scale(2.0);
   assert(Vector3(10.0, 6.0, 4.0) == c);
@@ -288,16 +325,20 @@ unittest {
  *     v      = is the vector we want the magnitude of.
  * Returns: A `double` representing the magnitude of `v`.
  */
-double mag(Vector3 v) pure nothrow @nogc @safe {
+double mag(Vector3 v) pure nothrow @nogc @safe
+{
   import std.math.algebraic : sqrt;
+
   return (v.x * v.x + v.y * v.y + v.z * v.z).sqrt();
 }
 
-unittest {
+unittest
+{
   auto a = Vector3(5.0, 0.0, 0.0);
   auto b = Vector3(3.0, 4.0, 5.0);
   assert(a.mag() == 5.0);
   import std.math : round;
+
   assert(b.mag().round() == 7);
   assert(zero3().mag() == 0.0);
 }
@@ -310,12 +351,17 @@ unittest {
  *     v      = is the vector we want to normalize.
  * Returns: A `Vector3` representing the normalized version of `v`.
  */
-Vector3 norm(Vector3 v) pure nothrow @nogc @safe {
-  if (v == zero3()) { return zero3(); }
+Vector3 norm(Vector3 v) pure nothrow @nogc @safe
+{
+  if (v == zero3())
+  {
+    return zero3();
+  }
   return v.scale(1.0 / v.mag());
 }
 
-unittest {
+unittest
+{
   auto a = Vector2(5.0, 0.0);
   assert(a.norm() == Vector2(1.0, 0.0));
   assert(zero3().norm() == zero3());
@@ -331,13 +377,15 @@ unittest {
  * Returns: A `Vector3` representing the cross product 
  *          of `v1` and 'v2'.
  */
-Vector3 cross(Vector3 v1, Vector3 v2) pure nothrow @nogc @safe {
+Vector3 cross(Vector3 v1, Vector3 v2) pure nothrow @nogc @safe
+{
   return Vector3(v1.y * v2.z - v1.z * v2.y,
-		 v1.z * v2.x - v1.x * v2.z,
-		 v1.x * v2.y - v1.y * v2.x);
+    v1.z * v2.x - v1.x * v2.z,
+    v1.x * v2.y - v1.y * v2.x);
 }
 
-unittest {
+unittest
+{
   auto a = Vector3(1.0, 2.0, 3.0);
   auto b = Vector3(3.0, 4.0, 5.0);
   assert(a.cross(b) == Vector3(-2.0, 4.0, -2.0));
@@ -353,11 +401,13 @@ unittest {
  * Returns: A `double` representing the dot product 
  *          of `v1` and 'v2'.
  */
-double dot(Vector3 v1, Vector3 v2) pure nothrow @nogc @safe {
+double dot(Vector3 v1, Vector3 v2) pure nothrow @nogc @safe
+{
   return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 }
 
-unittest {
+unittest
+{
   auto a = Vector3(5.0, 2.0, 3.0);
   auto b = Vector3(4.0, 5.0, 8.0);
   assert(a.dot(b) == 54.0);
@@ -373,17 +423,21 @@ unittest {
  * Returns: A `double` in radians representing the angle between
  *          `v1` and 'v2'.
  */
-double angle(Vector3 v1, Vector3 v2) pure nothrow @nogc @safe {
+double angle(Vector3 v1, Vector3 v2) pure nothrow @nogc @safe
+{
   import std.math.trigonometry : acos;
+
   auto v1M = v1.mag();
   auto v2M = v2.mag();
   return acos(v1.dot(v2) / (v1M * v2M));
 }
 
-unittest {
+unittest
+{
   auto a = Vector3(5.0, 0.0, 0.0);
   auto b = Vector3(0.0, 5.0, 0.0);
   import std.math.rounding : round;
+
   assert(a.angle(b).round() == 2);
 }
 
@@ -396,14 +450,16 @@ unittest {
  *     v      = is the vector we want to swap to the left.
  * Returns: A `Vector3` with swapped components in comparison to `v`.
  */
-Vector3 swapLeft(Vector3 v) pure nothrow @nogc @safe {
+Vector3 swapLeft(Vector3 v) pure nothrow @nogc @safe
+{
   auto xN = v.y;
   auto yN = v.z;
   auto zN = v.x;
   return Vector3(xN, yN, zN);
 }
 
-unittest {
+unittest
+{
   auto a = Vector3(5.0, 0.0, 3.0);
   assert(a.swapLeft() == Vector3(0.0, 3.0, 5.0));
 }
@@ -417,14 +473,16 @@ unittest {
  *     v      = is the vector we want to swap to the left.
  * Returns: A `Vector3` with swapped components in comparison to `v`.
  */
-Vector3 swapRight(Vector3 v) pure nothrow @nogc @safe {
+Vector3 swapRight(Vector3 v) pure nothrow @nogc @safe
+{
   auto xN = v.z;
   auto yN = v.x;
   auto zN = v.y;
   return Vector3(xN, yN, zN);
 }
 
-unittest {
+unittest
+{
   auto a = Vector3(5.0, 0.0, 3.0);
   assert(a.swapRight() == Vector3(3.0, 5.0, 0.0));
   assert(a.swapLeft().swapRight() == a);
@@ -445,8 +503,10 @@ unittest {
  * Vector3(1.0, 2.0, 3.0).downgrade(Vector3Pos.X); //Vector2(2.0, 3.0)
  * -------------------------------------------------------------------
  */
-Vector2 downgrade(Vector3 v, Vector3Pos vp) pure nothrow @nogc @safe {
-  switch (vp) {
+Vector2 downgrade(Vector3 v, Vector3Pos vp) pure nothrow @nogc @safe
+{
+  switch (vp)
+  {
   case Vector3Pos.X:
     return Vector2(v.y, v.z);
   case Vector3Pos.Y:
@@ -456,7 +516,8 @@ Vector2 downgrade(Vector3 v, Vector3Pos vp) pure nothrow @nogc @safe {
   }
 }
 
-unittest {
+unittest
+{
   auto a = Vector3(5.0, 0.0, 1.0);
   assert(a.downgrade(Vector3Pos.X) == Vector2(0.0, 1.0));
   assert(a.downgrade(Vector3Pos.Y) == Vector2(5.0, 1.0));
@@ -472,7 +533,8 @@ unittest {
  * a b
  * c d
  */
-immutable struct Matrix2x2 {
+immutable struct Matrix2x2
+{
   double a;
   double b;
   double c;
@@ -485,7 +547,8 @@ immutable struct Matrix2x2 {
  * d e f
  * g h i
  */
-immutable struct Matrix3x3 {
+immutable struct Matrix3x3
+{
   double a;
   double b;
   double c;
@@ -509,11 +572,13 @@ immutable struct Matrix3x3 {
  * Date: September 24, 2021
  * Returns: The unit matrix of type `Matrix2x2`.
  */
-Matrix2x2 unit2x2() pure nothrow @nogc @safe {
+Matrix2x2 unit2x2() pure nothrow @nogc @safe
+{
   return Matrix2x2(1.0, 0.0, 0.0, 1.0);
 }
 
-unittest {
+unittest
+{
   assert(unit2x2() == Matrix2x2(1.0, 0.0, 0.0, 1.0));
 }
 
@@ -529,11 +594,13 @@ unittest {
  *              be extracted.
  * Returns: A `Vector2[]` containg all the row vectors.
  */
-Vector2[] rowVectors(Matrix2x2 m) pure nothrow @safe {
+Vector2[] rowVectors(Matrix2x2 m) pure nothrow @safe
+{
   return [Vector2(m.a, m.b), Vector2(m.c, m.d)];
 }
 
-unittest {
+unittest
+{
   auto a = Matrix2x2(1.0, 3.0, -4.0, 2.0);
   assert(a.rowVectors() == [Vector2(1.0, 3.0), Vector2(-4.0, 2.0)]);
 }
@@ -550,11 +617,13 @@ unittest {
  *              be extracted.
  * Returns: A `Vector2[]` containg all the column vectors.
  */
-Vector2[] colVectors(Matrix2x2 m) pure nothrow @safe {
+Vector2[] colVectors(Matrix2x2 m) pure nothrow @safe
+{
   return [Vector2(m.a, m.c), Vector2(m.b, m.d)];
 }
 
-unittest {
+unittest
+{
   auto a = Matrix2x2(1.0, 3.0, -4.0, 2.0);
   assert(a.colVectors() == [Vector2(1.0, -4.0), Vector2(3.0, 2.0)]);
 }
@@ -568,12 +637,14 @@ unittest {
  *     scalar = is the amount we want to scale.
  * Returns: A scaled version of our input `Matrix2x2` `m`.
  */
-Matrix2x2 scale(Matrix2x2 m, double scalar) pure nothrow @nogc @safe {
+Matrix2x2 scale(Matrix2x2 m, double scalar) pure nothrow @nogc @safe
+{
   return Matrix2x2(m.a * scalar, m.b * scalar,
-		   m.c * scalar, m.d * scalar);
+    m.c * scalar, m.d * scalar);
 }
 
-unittest {
+unittest
+{
   auto a = Matrix2x2(1.0, 3.0, -4.0, 2.0);
   assert(a.scale(5.0) == Matrix2x2(5.0, 15.0, -20.0, 10.0));
 }
@@ -587,14 +658,16 @@ unittest {
  *     m2      = is the right hand side matrix.
  * Returns: The resulting `Matrix2x2` from the multiplication.
  */
-Matrix2x2 mult(Matrix2x2 m1, Matrix2x2 m2) pure nothrow @nogc @safe {
+Matrix2x2 mult(Matrix2x2 m1, Matrix2x2 m2) pure nothrow @nogc @safe
+{
   return Matrix2x2(m1.a * m2.a + m1.b * m2.c,
-		   m1.a * m2.b + m1.b * m2.d,
-		   m1.c * m2.a + m1.d * m2.c,
-		   m1.c * m2.b + m1.d * m2.d);
+    m1.a * m2.b + m1.b * m2.d,
+    m1.c * m2.a + m1.d * m2.c,
+    m1.c * m2.b + m1.d * m2.d);
 }
 
-unittest {
+unittest
+{
   auto a = Matrix2x2(1.0, 3.0, -4.0, 2.0);
   auto b = Matrix2x2(7.0, -3.0, -1.0, 5.0);
   assert(a.mult(b) == Matrix2x2(4.0, 12.0, -30.0, 22.0));
@@ -613,11 +686,13 @@ unittest {
  *     v      = is the vector.
  * Returns: The resulting `Vector2` from the multiplication.
  */
-Vector2 mult(Matrix2x2 m, Vector2 v) pure nothrow @nogc @safe {
+Vector2 mult(Matrix2x2 m, Vector2 v) pure nothrow @nogc @safe
+{
   return Vector2(m.a * v.x + m.b * v.y, m.c * v.x + m.d * v.y);
 }
 
-unittest {
+unittest
+{
   auto a = Matrix2x2(1.0, 3.0, -4.0, 2.0);
   auto b = Vector2(3.0, 2.0);
   assert(a.mult(b) == Vector2(9.0, -8.0));
@@ -634,10 +709,12 @@ unittest {
  * Returns: The resulting `Vector2` from the rotation.
  */
 Vector2 rotateClockwise(Vector2 v, double angle)
-     pure nothrow @nogc @safe {
+pure nothrow @nogc @safe
+{
   import std.math.trigonometry;
-  Matrix2x2 rotationMatrix = Matrix2x2( cos(-angle), sin(-angle),
-				       -sin(-angle), cos(-angle));
+
+  Matrix2x2 rotationMatrix = Matrix2x2(cos(-angle), sin(-angle),
+    -sin(-angle), cos(-angle));
 
   return rotationMatrix.mult(v);
 }
@@ -653,10 +730,12 @@ Vector2 rotateClockwise(Vector2 v, double angle)
  * Returns: The resulting `Vector2` from the rotation.
  */
 Vector2 rotateCounterClockwise(Vector2 v, double angle)
-     pure nothrow @nogc @safe {
+pure nothrow @nogc @safe
+{
   import std.math.trigonometry;
-  Matrix2x2 rotationMatrix = Matrix2x2( cos(angle), sin(angle),
-				       -sin(angle), cos(angle));
+
+  Matrix2x2 rotationMatrix = Matrix2x2(cos(angle), sin(angle),
+    -sin(angle), cos(angle));
 
   return rotationMatrix.mult(v);
 }
@@ -674,16 +753,18 @@ Vector2 rotateCounterClockwise(Vector2 v, double angle)
  * Date: September 24, 2021
  * Returns: The unit matrix of type `Matrix3x3`.
  */
-Matrix3x3 unit3x3() pure nothrow @nogc @safe {
+Matrix3x3 unit3x3() pure nothrow @nogc @safe
+{
   return Matrix3x3(1.0, 0.0, 0.0,
-		   0.0, 1.0, 0.0,
-		   0.0, 0.0, 1.0);
+    0.0, 1.0, 0.0,
+    0.0, 0.0, 1.0);
 }
 
-unittest {
+unittest
+{
   assert(unit3x3() == Matrix3x3(1.0, 0.0, 0.0,
-				0.0, 1.0, 0.0,
-				0.0, 0.0, 1.0));
+      0.0, 1.0, 0.0,
+      0.0, 0.0, 1.0));
 }
 
 /**
@@ -699,19 +780,25 @@ unittest {
  *              be extracted.
  * Returns: A `Vector3[]` containg all the row vectors.
  */
-Vector3[] rowVectors(Matrix3x3 m) pure nothrow @safe {
-  return [Vector3(m.a, m.b, m.c),
-	  Vector3(m.d, m.e, m.f),
-	  Vector3(m.g, m.h, m.i)];
+Vector3[] rowVectors(Matrix3x3 m) pure nothrow @safe
+{
+  return [
+    Vector3(m.a, m.b, m.c),
+    Vector3(m.d, m.e, m.f),
+    Vector3(m.g, m.h, m.i)
+  ];
 }
 
-unittest {
-  auto a = Matrix3x3(1.0,  3.0, -4.0,
-		     2.0,  5.1,  2.9,
-		     1.0, -4.9, -1.2);
-  assert(a.rowVectors() == [Vector3(1.0,  3.0, -4.0),
-			    Vector3(2.0,  5.1,  2.9),
-			    Vector3(1.0, -4.9, -1.2)]);
+unittest
+{
+  auto a = Matrix3x3(1.0, 3.0, -4.0,
+    2.0, 5.1, 2.9,
+    1.0, -4.9, -1.2);
+  assert(a.rowVectors() == [
+    Vector3(1.0, 3.0, -4.0),
+    Vector3(2.0, 5.1, 2.9),
+    Vector3(1.0, -4.9, -1.2)
+  ]);
 }
 
 /**
@@ -727,19 +814,25 @@ unittest {
  *              be extracted.
  * Returns: A `Vector3[]` containg all the column vectors.
  */
-Vector3[] colVectors(Matrix3x3 m) pure nothrow @safe {
-  return [Vector3(m.a, m.d, m.g),
-	  Vector3(m.b, m.e, m.h),
-	  Vector3(m.c, m.f, m.i)];
+Vector3[] colVectors(Matrix3x3 m) pure nothrow @safe
+{
+  return [
+    Vector3(m.a, m.d, m.g),
+    Vector3(m.b, m.e, m.h),
+    Vector3(m.c, m.f, m.i)
+  ];
 }
 
-unittest {
-  auto a = Matrix3x3(1.0,  3.0, -4.0,
-		     2.0,  5.1,  2.9,
-		     1.0, -4.9, -1.2);
-  assert(a.colVectors() == [Vector3( 1.0,  2.0,  1.0),
-			    Vector3( 3.0,  5.1, -4.9),
-			    Vector3(-4.0,  2.9, -1.2)]);
+unittest
+{
+  auto a = Matrix3x3(1.0, 3.0, -4.0,
+    2.0, 5.1, 2.9,
+    1.0, -4.9, -1.2);
+  assert(a.colVectors() == [
+    Vector3(1.0, 2.0, 1.0),
+    Vector3(3.0, 5.1, -4.9),
+    Vector3(-4.0, 2.9, -1.2)
+  ]);
 }
 
 /**
@@ -751,19 +844,21 @@ unittest {
  *     scalar = is the amount we want to scale.
  * Returns: A scaled version of our input `Matrix3x3` `m`.
  */
-Matrix3x3 scale(Matrix3x3 m, double scalar) pure nothrow @nogc @safe {
+Matrix3x3 scale(Matrix3x3 m, double scalar) pure nothrow @nogc @safe
+{
   return Matrix3x3(m.a * scalar, m.b * scalar, m.c * scalar,
-		   m.d * scalar, m.e * scalar, m.f * scalar,
-		   m.g * scalar, m.h * scalar, m.i * scalar);
+    m.d * scalar, m.e * scalar, m.f * scalar,
+    m.g * scalar, m.h * scalar, m.i * scalar);
 }
 
-unittest {
-  auto a = Matrix3x3(1.0,  3.0, -4.0,
-		     2.0,  5.1,  3.0,
-		     1.0, -5.0, -1.2);
-  assert(a.scale(5.0) == Matrix3x3( 5.0,  15.0, -20.0,
-				   10.0,  25.5,  15.0,
-				    5.0, -25.0, - 6.0));
+unittest
+{
+  auto a = Matrix3x3(1.0, 3.0, -4.0,
+    2.0, 5.1, 3.0,
+    1.0, -5.0, -1.2);
+  assert(a.scale(5.0) == Matrix3x3(5.0, 15.0, -20.0,
+      10.0, 25.5, 15.0,
+      5.0, -25.0, -6.0));
 }
 
 /**
@@ -775,7 +870,8 @@ unittest {
  *     m2      = is the right hand side matrix.
  * Returns: The resulting `Matrix3x3` from the multiplication.
  */
-Matrix3x3 mult(Matrix3x3 m1, Matrix3x3 m2) pure nothrow @nogc @safe {
+Matrix3x3 mult(Matrix3x3 m1, Matrix3x3 m2) pure nothrow @nogc @safe
+{
   double aN = m1.a * m2.a + m1.b * m2.d + m1.c * m2.g;
   double bN = m1.a * m2.b + m1.b * m2.e + m1.c * m2.h;
   double cN = m1.a * m2.c + m1.b * m2.f + m1.c * m2.i;
@@ -785,23 +881,24 @@ Matrix3x3 mult(Matrix3x3 m1, Matrix3x3 m2) pure nothrow @nogc @safe {
   double gN = m1.g * m2.a + m1.h * m2.d + m1.i * m2.g;
   double hN = m1.g * m2.b + m1.h * m2.e + m1.i * m2.h;
   double iN = m1.g * m2.c + m1.h * m2.f + m1.i * m2.i;
-  
+
   return Matrix3x3(aN, bN, cN,
-		   dN, eN, fN,
-		   gN, hN, iN);
+    dN, eN, fN,
+    gN, hN, iN);
 }
 
-unittest {
+unittest
+{
   auto a = Matrix3x3(1.0, 2.0, 3.0,
-		     4.0, 5.0, 6.0,
-		     7.0, 8.0, 9.0);
+    4.0, 5.0, 6.0,
+    7.0, 8.0, 9.0);
   auto b = Matrix3x3(9.0, 8.0, 7.0,
-		     6.0, 5.0, 4.0,
-		     3.0, 2.0, 1.0);
-  
-  assert(a.mult(b) == Matrix3x3( 30.0,  24.0, 18.0,
-				 84.0,  69.0, 54.0,
-				138.0, 114.0, 90.0));
+    6.0, 5.0, 4.0,
+    3.0, 2.0, 1.0);
+
+  assert(a.mult(b) == Matrix3x3(30.0, 24.0, 18.0,
+      84.0, 69.0, 54.0,
+      138.0, 114.0, 90.0));
 }
 
 /**
@@ -813,16 +910,18 @@ unittest {
  *     v      = is the vector.
  * Returns: The resulting `Vector3` from the multiplication.
  */
-Vector3 mult(Matrix3x3 m, Vector3 v) pure nothrow @nogc @safe {
+Vector3 mult(Matrix3x3 m, Vector3 v) pure nothrow @nogc @safe
+{
   return Vector3(m.a * v.x + m.b * v.y + m.c * v.z,
-		 m.d * v.x + m.e * v.y + m.f * v.z,
-		 m.g * v.x + m.h * v.y + m.i * v.z);
+    m.d * v.x + m.e * v.y + m.f * v.z,
+    m.g * v.x + m.h * v.y + m.i * v.z);
 }
 
-unittest {
+unittest
+{
   auto a = Matrix3x3(1.0, 3.0, -4.0,
-		     2.0, 5.0,  2.0,
-		     1.0, 3.0,  7.0);
+    2.0, 5.0, 2.0,
+    1.0, 3.0, 7.0);
   auto b = Vector3(3.0, 2.0, 4.0);
   assert(a.mult(b) == Vector3(-7.0, 24, 37));
 }
@@ -837,12 +936,14 @@ unittest {
  *     angle  = is the angle in radians.
  * Returns: The resulting `Vector3` from the rotation.
  */
-Vector3 rotateX(Vector3 v, double angle) pure nothrow @nogc @safe {
+Vector3 rotateX(Vector3 v, double angle) pure nothrow @nogc @safe
+{
   import std.math.trigonometry;
+
   Matrix3x3 rotationMatrix =
-    Matrix3x3(1.0,        0.0,         0.0,
-	      0.0, cos(angle), -sin(angle),
-	      0.0, sin(angle),  cos(angle));
+    Matrix3x3(1.0, 0.0, 0.0,
+      0.0, cos(angle), -sin(angle),
+      0.0, sin(angle), cos(angle));
 
   return rotationMatrix.mult(v);
 }
@@ -857,12 +958,14 @@ Vector3 rotateX(Vector3 v, double angle) pure nothrow @nogc @safe {
  *     angle  = is the angle in radians.
  * Returns: The resulting `Vector3` from the rotation.
  */
-Vector3 rotateY(Vector3 v, double angle) pure nothrow @nogc @safe {
+Vector3 rotateY(Vector3 v, double angle) pure nothrow @nogc @safe
+{
   import std.math.trigonometry;
+
   Matrix3x3 rotationMatrix =
-    Matrix3x3( cos(angle), 0.0, sin(angle),
-	              0.0, 1.0,        0.0,
-	      -sin(angle), 0.0, cos(angle));
+    Matrix3x3(cos(angle), 0.0, sin(angle),
+      0.0, 1.0, 0.0,
+      -sin(angle), 0.0, cos(angle));
 
   return rotationMatrix.mult(v);
 }
@@ -877,12 +980,14 @@ Vector3 rotateY(Vector3 v, double angle) pure nothrow @nogc @safe {
  *     angle  = is the angle in radians.
  * Returns: The resulting `Vector3` from the rotation.
  */
-Vector3 rotateZ(Vector3 v, double angle) pure nothrow @nogc @safe {
+Vector3 rotateZ(Vector3 v, double angle) pure nothrow @nogc @safe
+{
   import std.math.trigonometry;
+
   Matrix3x3 rotationMatrix =
     Matrix3x3(cos(angle), -sin(angle), 0.0,
-	      sin(angle),  cos(angle), 0.0,
-	             0.0,         0.0, 1.0);
+      sin(angle), cos(angle), 0.0,
+      0.0, 0.0, 1.0);
 
   return rotationMatrix.mult(v);
 }
@@ -906,22 +1011,30 @@ Vector3 rotateZ(Vector3 v, double angle) pure nothrow @nogc @safe {
  * the same length as the supplied dimension of the vector or when the
  * supplied dimension is less than 4.
  */
-struct Vector(size_t dimension) {
+struct Vector(size_t dimension)
+{
   double[dimension] components;
 
-  this(double[] init) {
-    if (init.length == components.length) {
-      foreach (i, d; init) {
-	components[i] = d;
+  this(double[] init)
+  {
+    if (init.length == components.length)
+    {
+      foreach (i, d; init)
+      {
+        components[i] = d;
       }
-    } else {
+    }
+    else
+    {
       throw new Exception("Dimensions of init array and components, do not match.");
     }
   }
-  
-  static foreach (d; 0..dimension) {
+
+  static foreach (d; 0 .. dimension)
+  {
     import std.format : format;
-    mixin (format!"double x%s() {return this.components[%s];}"(d,d));
+
+    mixin(format!"double x%s() {return this.components[%s];}"(d, d));
   }
 }
 
@@ -933,13 +1046,15 @@ struct Vector(size_t dimension) {
  *     dim = is the number of dimensions.
  * Returns: A `Vector!dim` filled with `dim` `0.0`s.
  */
-Vector!dim zeroN(size_t dim)() pure @safe {
+Vector!dim zeroN(size_t dim)() pure @safe
+{
   double[dim] init;
   init[] = 0.0;
   return Vector!dim(init);
 }
 
-unittest {
+unittest
+{
   Vector!5 a = Vector!5([0, 0, 0, 0, 0]);
   Vector!5 b = zeroN!5;
   assert(a == b);
@@ -954,17 +1069,20 @@ unittest {
  *     rhs = is the right hand side of the addition.
  * Returns: A `Vector!dim` representing the addition of `v1` and `v2`.
  */
-Vector!dim add(size_t dim)(Vector!dim v1, Vector!dim v2) pure @safe {
+Vector!dim add(size_t dim)(Vector!dim v1, Vector!dim v2) pure @safe
+{
   double[] result;
-  foreach (i, e; v1.components) {
+  foreach (i, e; v1.components)
+  {
     result ~= e + v2.components[i];
   }
   return Vector!dim(result);
 }
 
-unittest {
-  Vector!5 a = Vector!5([1,2,3,4,5]);
-  Vector!5 b = Vector!5([1,2,3,4,5]);
+unittest
+{
+  Vector!5 a = Vector!5([1, 2, 3, 4, 5]);
+  Vector!5 b = Vector!5([1, 2, 3, 4, 5]);
   assert(a.add(b) == Vector!5([2, 4, 6, 8, 10]));
 }
 
@@ -977,16 +1095,19 @@ unittest {
  *     scalar = is the amount the vector gets scaled.
  * Returns: A `Vector!dim` representing the scaled version of `v`.
  */
-Vector!dim scale(size_t dim)(Vector!dim v, double scalar) pure @safe {
+Vector!dim scale(size_t dim)(Vector!dim v, double scalar) pure @safe
+{
   double[] result;
-  foreach (e; v.components) {
+  foreach (e; v.components)
+  {
     result ~= e * scalar;
   }
   return Vector!dim(result);
 }
 
-unittest {
-  Vector!5 a = Vector!5([1,2,3,4,5]);
+unittest
+{
+  Vector!5 a = Vector!5([1, 2, 3, 4, 5]);
   assert(a.scale(5) == Vector!5([5, 10, 15, 20, 25]));
 }
 
@@ -998,18 +1119,23 @@ unittest {
  *     v      = is the vector we want the magnitude of.
  * Returns: A `double` representing the magnitude of `v`.
  */
-double mag(size_t dim)(Vector!dim v) pure @safe {  
+double mag(size_t dim)(Vector!dim v) pure @safe
+{
   double result = 0.0;
-  foreach (e; v.components) {
+  foreach (e; v.components)
+  {
     result += e * e;
   }
   import std.math : sqrt;
+
   return result.sqrt();
 }
 
-unittest {
+unittest
+{
   import std.math.algebraic : sqrt;
-  Vector!5 a = Vector!5([1,2,3,4,5]);
+
+  Vector!5 a = Vector!5([1, 2, 3, 4, 5]);
   assert(a.mag() == sqrt(55.0));
 }
 
@@ -1021,12 +1147,17 @@ unittest {
  *     v      = is the vector we want to normalize.
  * Returns: A `Vector!dim` representing the normalized version of `v`.
  */
-Vector!dim norm(size_t dim)(Vector!dim v) pure @safe {
-  if (v == zeroN!dim) { return zeroN!dim; }
+Vector!dim norm(size_t dim)(Vector!dim v) pure @safe
+{
+  if (v == zeroN!dim)
+  {
+    return zeroN!dim;
+  }
   return v.scale(1.0 / v.mag());
 }
 
-unittest {
+unittest
+{
   Vector!4 a = Vector!4([2, 2, 2, 2]);
   assert(a.norm() == Vector!4([0.5, 0.5, 0.5, 0.5]));
   assert(Vector!4([0, 0, 0, 0]).norm == zeroN!4);
@@ -1042,15 +1173,18 @@ unittest {
  * Returns: A `double` representing the dot product of `v1` and `v2`.
  */
 double dot(size_t dim)(Vector!dim v1, Vector!dim v2)
-     pure @safe {
+pure @safe
+{
   double result = 0.0;
-  foreach(i, e; v1.components) {
+  foreach (i, e; v1.components)
+  {
     result += e * v2.components[i];
   }
   return result;
 }
 
-unittest {
+unittest
+{
   auto a = Vector!5([1, 2, 3, 4, 5]);
   auto b = Vector!5([3, 4, 5, 6, 7]);
   assert(a.dot(b) == 85);
@@ -1067,15 +1201,19 @@ unittest {
  *          `v1` and 'v2'.
  */
 double angle(size_t dim)(Vector!dim v1, Vector!dim v2)
-     pure @safe {
+pure @safe
+{
   import std.math.trigonometry : acos;
+
   auto v1M = v1.mag();
   auto v2M = v2.mag();
   import std;
+
   return acos(v1.dot(v2) / (v1M * v2M));
 }
 
-unittest {
+unittest
+{
   auto a = Vector!4([1, 2, 3, 5]);
   auto b = Vector!4([3, 4, 5, 7]);
   assert(a.angle(b) < 0.2 && a.angle(b) > 0.19);
@@ -1091,15 +1229,15 @@ unittest {
  * Returns: A `Vector!(dim + 1)` with an additional `0.0` as 
  * a component.
  */
-Vector!(dim + 1) upgrade(size_t dim)(Vector!dim v) pure @safe {
+Vector!(dim + 1) upgrade(size_t dim)(Vector!dim v) pure @safe
+{
   double[] upgraded = v.components ~ 0.0;
   return Vector!(dim + 1)(upgraded);
 }
 
-unittest {
+unittest
+{
   Vector!4 a = Vector!4([2, 2, 2, 2]);
   Vector!5 b = a.upgrade();
   assert(b == Vector!5([2, 2, 2, 2, 0]));
 }
-
-
