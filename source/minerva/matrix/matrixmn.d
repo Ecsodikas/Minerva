@@ -10,6 +10,8 @@ import minerva.vector.vectorn;
  * Examples:
  * -------------------------------------------------------------------
  * Matrix!(5, 5) v = Matrix!(5,5)([[1,2,3,4,5], [1,2,3,4,5], [1,2,3,4,5], [1,2,3,4,5], [1,2,3,4,5]]);
+ * assert(v.row0 == [1, 2, 3, 4, 5])
+ * assert(m1.extractColVector(1) == [2, 2, 2, 2, 2]);
  * assert(v.x0y0 == 1)
  * -------------------------------------------------------------------
  * Throws: Exception whenever the supplied nested lists of values have not
@@ -31,6 +33,23 @@ struct Matrix(size_t M, size_t N)
     }
   }
 
+  double[] extractColVector(size_t column)
+  {
+    double[] result = [];
+
+    foreach (row; 0 .. components.length)
+    {
+      foreach (col; 0 .. components[0].length)
+      {
+        if(col == column) {
+          result ~= components[row][col];
+        }
+      }
+    }
+
+    return result;
+  }
+
   import std.format : format;
 
   static foreach (y; 0 .. M)
@@ -40,10 +59,16 @@ struct Matrix(size_t M, size_t N)
       mixin(format!"double x%sy%s() {return this.components[%s][%s];}"(x, y, y, x));
     }
   }
+
+  static foreach (row; 0 .. M)
+  {
+    mixin(format!"double[] row%s() {return this.components[%s];}"(row, row));
+  }
 }
 
 unittest
 {
+
   Matrix!(5, 5) m1 = Matrix!(5, 5)([
     [1.0, 2.0, 3.0, 4.0, 5.0],
     [6.0, 7.0, 8.0, 9.0, 10.0],
@@ -51,6 +76,9 @@ unittest
     [16.0, 17.0, 18.0, 19.0, 20.0],
     [21.0, 22.0, 23.0, 24.0, 25.0]
   ]);
+
+  assert(m1.row0 == [1.0, 2.0, 3.0, 4.0, 5.0]);
+  assert(m1.extractColVector(1) == [2.0, 7.0, 12.0, 17.0, 22.0]);
   assert(m1.x0y1 == 6.0);
   assert(m1.x1y3 == 17.0);
   assert(m1.x4y1 == 10.0);
@@ -256,6 +284,5 @@ unittest
 
   Vector!3 v1 = Vector!3([2.0, 1.0, 0.0]);
 
-  assert(m1.multV!(2,3)(v1).components == [1.0, -3.0]);
+  assert(m1.multV!(2, 3)(v1).components == [1.0, -3.0]);
 }
-
