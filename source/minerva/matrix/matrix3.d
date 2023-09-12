@@ -36,6 +36,7 @@ Matrix3x3 unit3x3() pure nothrow @nogc @safe
         0.0, 0.0, 1.0);
 }
 
+/// Get the 3x3 unit matrix
 unittest
 {
     assert(unit3x3() == Matrix3x3(1.0, 0.0, 0.0,
@@ -65,6 +66,7 @@ Vector3[] rowVectors(Matrix3x3 m) pure nothrow @safe
     ];
 }
 
+/// Get the row vectors
 unittest
 {
     auto a = Matrix3x3(1.0, 3.0, -4.0,
@@ -99,6 +101,7 @@ Vector3[] colVectors(Matrix3x3 m) pure nothrow @safe
     ];
 }
 
+/// Get the column vectors
 unittest
 {
     auto a = Matrix3x3(1.0, 3.0, -4.0,
@@ -127,6 +130,7 @@ Matrix3x3 scale(Matrix3x3 m, double scalar) pure nothrow @nogc @safe
         m.g * scalar, m.h * scalar, m.i * scalar);
 }
 
+/// Scale a 3x3 matrix
 unittest
 {
     auto a = Matrix3x3(1.0, 3.0, -4.0,
@@ -163,6 +167,7 @@ Matrix3x3 mult(Matrix3x3 m1, Matrix3x3 m2) pure nothrow @nogc @safe
         gN, hN, iN);
 }
 
+/// Matrix-Matrix multiplication for 3x3 matrices
 unittest
 {
     auto a = Matrix3x3(1.0, 2.0, 3.0,
@@ -193,6 +198,7 @@ Vector3 mult(Matrix3x3 m, Vector3 v) pure nothrow @nogc @safe
         m.g * v.x + m.h * v.y + m.i * v.z);
 }
 
+/// Matrix-Vector multiplication
 unittest
 {
     auto a = Matrix3x3(1.0, 3.0, -4.0,

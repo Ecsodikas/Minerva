@@ -80,6 +80,7 @@ Vector2 add(Vector2 v1, Vector2 v2) pure nothrow @nogc @safe
     return Vector2(v1.x + v2.x, v1.y + v2.y);
 }
 
+/// Vector addition
 unittest
 {
     auto a = Vector2(5.0, 3.0);
@@ -102,6 +103,7 @@ Vector2 scale(Vector2 v, double scalar) pure nothrow @nogc @safe
     return Vector2(v.x * scalar, v.y * scalar);
 }
 
+/// Vector scaling
 unittest
 {
     auto a = Vector2(5.0, 3.0);
@@ -125,6 +127,7 @@ double mag(Vector2 v) pure nothrow @nogc @safe
     return (v.x * v.x + v.y * v.y).sqrt();
 }
 
+/// Get the magnitude of a vector
 unittest
 {
     auto a = Vector2(5.0, 0.0);
@@ -151,6 +154,7 @@ Vector2 norm(Vector2 v) pure nothrow @nogc @safe
     return v.scale(1.0 / v.mag());
 }
 
+/// Normalise a vector
 unittest
 {
     auto a = Vector2(5.0, 0.0);
@@ -173,6 +177,7 @@ double cross(Vector2 v1, Vector2 v2) pure nothrow @nogc @safe
     return v1.x * v2.y - v2.x * v1.y;
 }
 
+/// Calculate the cross product between two 2 dimensional vectors
 unittest
 {
     auto a = Vector2(5.0, 1.0);
@@ -195,6 +200,7 @@ double dot(Vector2 v1, Vector2 v2) pure nothrow @nogc @safe
     return v1.x * v2.x + v1.y * v2.y;
 }
 
+/// Calculate the dot product between two 2 dimensional vectors
 unittest
 {
     auto a = Vector2(5.0, 2.0);
@@ -221,6 +227,7 @@ double angle(Vector2 v1, Vector2 v2) pure nothrow @nogc @safe
     return acos(v1N.dot(v2N));
 }
 
+/// Calculate the angle between two 2 dimensional vectors
 unittest
 {
     auto a = Vector2(5.0, 0.0);
@@ -245,6 +252,7 @@ Vector2 swap(Vector2 v) pure nothrow @nogc @safe
     return Vector2(xN, yN);
 }
 
+/// Swap the components of a 2 dimensional vector
 unittest
 {
     auto a = Vector2(5.0, 0.0);
@@ -265,6 +273,7 @@ Vector3 upgrade(Vector2 v) pure nothrow @nogc @safe
     return Vector3(v.x, v.y, 0.0);
 }
 
+/// Add a third dimension to a 2 dimensional vector
 unittest
 {
     auto a = Vector2(5.0, 0.0);

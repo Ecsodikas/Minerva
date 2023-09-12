@@ -155,36 +155,6 @@ unittest
  * template arguments like `mult!(M,P,N)(lhs, rhs)`.
  * Authors: eXodiquas
  * Date: September 12, 2023
- * Examples:
- * -------------------------------------------------------------------
- * Matrix!(1, 2) m1 = Matrix!(1, 2)([
- *     [1.0, 2.0]
- *   ]);
- *
- * Matrix!(2, 3) m2 = Matrix!(2, 3)([
- *     [1.0, 2.0, 3.0],
- *     [4.0, 5.0, 6.0]
- *   ]);
- *
- * assert(m1.mult!(1, 3, 2)(m2).components == [[9.0, 12.0, 15.0]]);
- *
- *
- * Matrix!(2, 3) m3 = Matrix!(2, 3)([
- *     [1.0, 2.0, 3.0],
- *     [4.0, 5.0, 6.0],
- *   ]);
- *
- * Matrix!(3, 4) m4 = Matrix!(3, 4)([
- *     [1.0, 2.0, 3.0, 4.0],
- *     [4.0, 5.0, 6.0, 4.0],
- *     [1.0, 2.0, 3.0, 4.0]
- *   ]);
- *
- * assert(m3.mult!(2, 4, 3)(m4).components == [
- *     [12.0, 18.0, 24.0, 24.0],
- *     [30.0, 45.0, 60.0, 60.0]
- *   ]);
- * -------------------------------------------------------------------
  * Params:
  *   lhs = A MxN matrix
  *   rhs = A NxP matrix
@@ -208,6 +178,7 @@ Matrix!(M, P) mult(size_t M, size_t P, size_t N)(Matrix!(M, N) lhs, Matrix!(N, P
   return result;
 }
 
+/// Matrix-Matrix multiplication
 unittest
 {
   Matrix!(1, 2) m1 = Matrix!(1, 2)([
@@ -243,17 +214,6 @@ unittest
  * template arguments like `multV!(M,N)(lhs, rhs)`.
  * Authors: eXodiquas
  * Date: September 12, 2023
- * Examples:
- * -------------------------------------------------------------------
- * Matrix!(2, 3) m1 = Matrix!(2, 3)([
- *     [1.0, -1.0, 2.0],
- *     [0.0, -3.0, 1.0]
- *   ]);
- *
- * Vector!3 v1 = Vector!3([2.0, 1.0, 0.0]);
- *
- * assert(m1.multV!(2,3)(v1).components == [1.0, -3.0]);
- * -------------------------------------------------------------------
  * Params:
  *   lhs = A MxN matrix
  *   rhs = A N dimensional vector
@@ -274,7 +234,7 @@ Vector!M multV(size_t M, size_t N)(Matrix!(M, N) lhs, Vector!N rhs)
 
   return result;
 }
-
+/// Matrix-Vector multiplication
 unittest
 {
   Matrix!(2, 3) m1 = Matrix!(2, 3)([

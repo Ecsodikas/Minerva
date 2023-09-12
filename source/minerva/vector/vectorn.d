@@ -75,16 +75,17 @@ unittest
  *     rhs = is the right hand side of the addition.
  * Returns: A `Vector!dim` representing the addition of `v1` and `v2`.
  */
-Vector!dim add(size_t dim)(Vector!dim v1, Vector!dim v2) pure @safe
+Vector!dim add(size_t dim)(Vector!dim lhs, Vector!dim rhs) pure @safe
 {
     double[] result;
-    foreach (i, e; v1.components)
+    foreach (i, e; lhs.components)
     {
-        result ~= e + v2.components[i];
+        result ~= e + rhs.components[i];
     }
     return Vector!dim(result);
 }
 
+/// Vector addition
 unittest
 {
     Vector!5 a = Vector!5([1, 2, 3, 4, 5]);
@@ -111,6 +112,7 @@ Vector!dim scale(size_t dim)(Vector!dim v, double scalar) pure @safe
     return Vector!dim(result);
 }
 
+/// Vector scaling
 unittest
 {
     Vector!5 a = Vector!5([1, 2, 3, 4, 5]);
@@ -137,6 +139,7 @@ double mag(size_t dim)(Vector!dim v) pure @safe
     return result.sqrt();
 }
 
+/// Getting the magnitude of a vector
 unittest
 {
     import std.math : sqrt;
@@ -162,6 +165,7 @@ Vector!dim norm(size_t dim)(Vector!dim v) pure @safe
     return v.scale(1.0 / v.mag());
 }
 
+/// Normalise a vector
 unittest
 {
     Vector!4 a = Vector!4([2, 2, 2, 2]);
@@ -189,6 +193,7 @@ pure @safe
     return result;
 }
 
+/// Vector dot product
 unittest
 {
     auto a = Vector!5([1, 2, 3, 4, 5]);
@@ -218,6 +223,7 @@ pure @safe
     return acos(v1.dot(v2) / (v1M * v2M));
 }
 
+/// Calculating the angle between two vectors
 unittest
 {
     auto a = Vector!4([1, 2, 3, 5]);
@@ -241,6 +247,7 @@ Vector!(dim + 1) upgrade(size_t dim)(Vector!dim v) pure @safe
     return Vector!(dim + 1)(upgraded);
 }
 
+/// Upgrading a vector with another dimension
 unittest
 {
     Vector!4 a = Vector!4([2, 2, 2, 2]);
@@ -254,17 +261,6 @@ unittest
  * template arguments like `multV!(M,N)(lhs, rhs)`.
  * Authors: eXodiquas
  * Date: September 12, 2023
- * Examples:
- * -------------------------------------------------------------------
- *  Vector!2 v1 = Vector!2([2.0, 1.0]);
- *
- *  Matrix!(2, 3) m1 = Matrix!(2, 3)([
- *          [1.0, -1.0, 0.0],
- *          [0.0, -3.0, 0.0]
- *      ]);
- *
- *  assert(v1.multM!(2, 3)(m1).components == [2.0, -5.0, 0.0]);
- * -------------------------------------------------------------------
  * Params:
  *   lhs = A N dimensional vector
  *   rhs = A MxN matrix
@@ -285,6 +281,7 @@ Vector!N multM(size_t M, size_t N)(Vector!M lhs, Matrix!(M, N) rhs)
     return result;
 }
 
+/// Vector-Matrix multiplication
 unittest
 {
     Vector!2 v1 = Vector!2([2.0, 1.0]);

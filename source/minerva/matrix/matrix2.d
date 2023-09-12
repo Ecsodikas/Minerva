@@ -27,6 +27,7 @@ Matrix2x2 unit2x2() pure nothrow @nogc @safe
     return Matrix2x2(1.0, 0.0, 0.0, 1.0);
 }
 
+/// Create a 2x2 matrix
 unittest
 {
     assert(unit2x2() == Matrix2x2(1.0, 0.0, 0.0, 1.0));
@@ -49,6 +50,7 @@ Vector2[] rowVectors(Matrix2x2 m) pure nothrow @safe
     return [Vector2(m.a, m.b), Vector2(m.c, m.d)];
 }
 
+/// Get the row vectors of a matrix
 unittest
 {
     auto a = Matrix2x2(1.0, 3.0, -4.0, 2.0);
@@ -72,6 +74,7 @@ Vector2[] colVectors(Matrix2x2 m) pure nothrow @safe
     return [Vector2(m.a, m.c), Vector2(m.b, m.d)];
 }
 
+/// Get the col vectors of a matrix
 unittest
 {
     auto a = Matrix2x2(1.0, 3.0, -4.0, 2.0);
@@ -93,6 +96,7 @@ Matrix2x2 scale(Matrix2x2 m, double scalar) pure nothrow @nogc @safe
         m.c * scalar, m.d * scalar);
 }
 
+/// Scale a matrix
 unittest
 {
     auto a = Matrix2x2(1.0, 3.0, -4.0, 2.0);
@@ -116,6 +120,7 @@ Matrix2x2 mult(Matrix2x2 m1, Matrix2x2 m2) pure nothrow @nogc @safe
         m1.c * m2.b + m1.d * m2.d);
 }
 
+/// Multiply two 2x2 matices
 unittest
 {
     auto a = Matrix2x2(1.0, 3.0, -4.0, 2.0);
@@ -141,6 +146,7 @@ Vector2 mult(Matrix2x2 m, Vector2 v) pure nothrow @nogc @safe
     return Vector2(m.a * v.x + m.b * v.y, m.c * v.x + m.d * v.y);
 }
 
+/// Multiply a 2x2 matrix by a 2 dimensional vector
 unittest
 {
     auto a = Matrix2x2(1.0, 3.0, -4.0, 2.0);

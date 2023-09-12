@@ -110,6 +110,7 @@ Vector3 cross(Vector3 v1, Vector3 v2) pure nothrow @nogc @safe
         v1.x * v2.y - v1.y * v2.x);
 }
 
+/// Calculate the cross product between two 3 dimensional vectors
 unittest
 {
     auto a = Vector3(1.0, 2.0, 3.0);
@@ -132,6 +133,7 @@ double dot(Vector3 v1, Vector3 v2) pure nothrow @nogc @safe
     return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 }
 
+/// Calculate the dot product between two 3 dimensional vectors
 unittest
 {
     auto a = Vector3(5.0, 2.0, 3.0);
@@ -158,6 +160,7 @@ double angle(Vector3 v1, Vector3 v2) pure nothrow @nogc @safe
     return acos(v1.dot(v2) / (v1M * v2M));
 }
 
+/// Calculate the angle between two 3 dimensional vectors
 unittest
 {
     auto a = Vector3(5.0, 0.0, 0.0);
@@ -168,7 +171,7 @@ unittest
 }
 
 /**
- * Swaps the x, y and z values of `v` to the left, so x becomes y,
+ * Shifts the x, y and z values of `v` to the left, so x becomes y,
  * y becomes z and z becomes x.
  * Authors: eXodiquas
  * Date: September 24, 2021
@@ -176,7 +179,7 @@ unittest
  *     v      = is the vector we want to swap to the left.
  * Returns: A `Vector3` with swapped components in comparison to `v`.
  */
-Vector3 swapLeft(Vector3 v) pure nothrow @nogc @safe
+Vector3 shiftLeft(Vector3 v) pure nothrow @nogc @safe
 {
     auto xN = v.y;
     auto yN = v.z;
@@ -184,14 +187,15 @@ Vector3 swapLeft(Vector3 v) pure nothrow @nogc @safe
     return Vector3(xN, yN, zN);
 }
 
+/// Shifts the components to the left
 unittest
 {
     auto a = Vector3(5.0, 0.0, 3.0);
-    assert(a.swapLeft() == Vector3(0.0, 3.0, 5.0));
+    assert(a.shiftLeft() == Vector3(0.0, 3.0, 5.0));
 }
 
 /**
- * Swaps the x, y and z values of `v` to the right, so x becomes z,
+ * Shifts the x, y and z values of `v` to the right, so x becomes z,
  * y becomes a and z becomes y.
  * Authors: eXodiquas
  * Date: September 24, 2021
@@ -199,7 +203,7 @@ unittest
  *     v      = is the vector we want to swap to the left.
  * Returns: A `Vector3` with swapped components in comparison to `v`.
  */
-Vector3 swapRight(Vector3 v) pure nothrow @nogc @safe
+Vector3 shiftRight(Vector3 v) pure nothrow @nogc @safe
 {
     auto xN = v.z;
     auto yN = v.x;
@@ -207,11 +211,12 @@ Vector3 swapRight(Vector3 v) pure nothrow @nogc @safe
     return Vector3(xN, yN, zN);
 }
 
+/// Shifts the components to the right
 unittest
 {
     auto a = Vector3(5.0, 0.0, 3.0);
-    assert(a.swapRight() == Vector3(3.0, 5.0, 0.0));
-    assert(a.swapLeft().swapRight() == a);
+    assert(a.shiftRight() == Vector3(3.0, 5.0, 0.0));
+    assert(a.shiftLeft().shiftRight() == a);
 }
 
 /**
@@ -242,6 +247,7 @@ Vector2 downgrade(Vector3 v, Vector3Pos vp) pure nothrow @nogc @safe
     }
 }
 
+/// Downgrade a 3 dimension vector to a 2 dimensional one
 unittest
 {
     auto a = Vector3(5.0, 0.0, 1.0);
@@ -275,6 +281,7 @@ Vector3 add(Vector3 v1, Vector3 v2) pure nothrow @nogc @safe
     return Vector3(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
 }
 
+/// Vector3 addition
 unittest
 {
     auto a = Vector3(5.0, 3.0, -4.0);
@@ -297,6 +304,7 @@ Vector3 scale(Vector3 v, double scalar) pure nothrow @nogc @safe
     return Vector3(v.x * scalar, v.y * scalar, v.z * scalar);
 }
 
+/// Vector3 scaling
 unittest
 {
     auto a = Vector3(5.0, 3.0, 2.0);
@@ -320,6 +328,7 @@ double mag(Vector3 v) pure nothrow @nogc @safe
     return (v.x * v.x + v.y * v.y + v.z * v.z).sqrt();
 }
 
+/// Calculate the magnitude of a 3 dimensional vector
 unittest
 {
     auto a = Vector3(5.0, 0.0, 0.0);
@@ -348,6 +357,7 @@ Vector3 norm(Vector3 v) pure nothrow @nogc @safe
     return v.scale(1.0 / v.mag());
 }
 
+/// Normalise a 3 dimensional vector
 unittest
 {
     auto a = Vector3(5.0, 0.0, 0.0);
