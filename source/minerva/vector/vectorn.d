@@ -1,5 +1,7 @@
 module minerva.vector.vectorn;
 
+import minerva.matrix.matrixmn;
+
 /**
  * Struct representing a N-dimensional vector.
  * This struct only works for vectors with more than 3 dimensions.
@@ -244,4 +246,53 @@ unittest
     Vector!4 a = Vector!4([2, 2, 2, 2]);
     Vector!5 b = a.upgrade();
     assert(b == Vector!5([2, 2, 2, 2, 0]));
+}
+
+/** 
+ * Multiplies a N dimensional vector and a MxN matrix.
+ * You have to specify the dimensions of the matrices in the multiplication
+ * template arguments like `multV!(M,N)(lhs, rhs)`.
+ * Authors: eXodiquas
+ * Date: September 12, 2023
+ * Examples:
+ * -------------------------------------------------------------------
+ *  Vector!2 v1 = Vector!2([2.0, 1.0]);
+ *
+ *  Matrix!(2, 3) m1 = Matrix!(2, 3)([
+ *          [1.0, -1.0, 0.0],
+ *          [0.0, -3.0, 0.0]
+ *      ]);
+ *
+ *  assert(v1.multM!(2, 3)(m1).components == [2.0, -5.0, 0.0]);
+ * -------------------------------------------------------------------
+ * Params:
+ *   lhs = A N dimensional vector
+ *   rhs = A MxN matrix
+ * Returns: 
+ *   The resulting N dimensional vector.
+ */
+Vector!N multM(size_t M, size_t N)(Vector!M lhs, Matrix!(M, N) rhs)
+{
+    Vector!N result = zeroN!N();
+    foreach (m; 0 .. M)
+    {
+        foreach (n; 0 .. N)
+        {
+            result.components[n] += lhs.components[m] * rhs.components[m][n];
+        }
+    }
+
+    return result;
+}
+
+unittest
+{
+    Vector!2 v1 = Vector!2([2.0, 1.0]);
+
+    Matrix!(2, 3) m1 = Matrix!(2, 3)([
+            [1.0, -1.0, 0.0],
+            [0.0, -3.0, 0.0]
+        ]);
+
+    assert(v1.multM!(2, 3)(m1).components == [2.0, -5.0, 0.0]);
 }

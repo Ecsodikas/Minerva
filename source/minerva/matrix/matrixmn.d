@@ -258,3 +258,4 @@ unittest
 
   assert(m1.multV!(2,3)(v1).components == [1.0, -3.0]);
 }
+
