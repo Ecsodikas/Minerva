@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>mult (minerva.matrix.matrix3.mult)</title>
+	<meta charset="utf-8" />
+	<meta content="width=device-width, initial-scale=1" name="viewport" />
+        <link href="style.css" rel="stylesheet" />
+        <script src="script.js" type="text/javascript"></script>
+
+	
+	<link href="search-results.html" rel="prefetch" />
+</head>
+<body>
+	<div id="page-header">
+		<div id="logotype">
+		<span>Documentation</span>
+		<nav>
+			<a href="http://dlang.org/">Dlang.org</a>
+		</nav>
+		</div>
+
+		<form action="search-docs.html" id="search">
+			<input name="searchTerm" placeholder="Find a symbol name..." type="search" />
+			<input type="submit" value="Go" />
+		</form>
+	</div>
+	<div id="page-body">
+		<div id="page-content">
+		<h1>mult</h1><div class="breadcrumbs"><a class="breadcrumb" href="minerva.html">minerva</a> <a class="breadcrumb" href="minerva.matrix.html">matrix</a> <a class="breadcrumb" href="minerva.matrix.matrix3.html">matrix3</a> </div><div><div class="documentation-comment synopsis"><div><p>Mutliplies two <tt class="inline-code">Matrix3x3</tt> with eachother.</p></div></div></div><div class="annotated-prototype"><ol class="overloads"><li class="active-overload-option"><span class="overload-signature"><tt class="highlighted"><span class="hid">Matrix3x3</span></tt> <span class="name">mult</span>(Matrix3x3 m1, Matrix3x3 m2)</span><div class="function-prototype"><div class="attributes">pure nothrow @<span class="name" data-ident="nogc">nogc</span> @<span class="name" data-ident="safe">safe</span> </div><div class="return-type"><a class="name" data-ident="Matrix3x3" href="minerva.matrix.matrix3.Matrix3x3.html" title="minerva.matrix.matrix3.Matrix3x3">Matrix3x3</a></div><div class="function-name">mult</div><div class="template-parameters" data-count="0"></div><div class="runtime-parameters" data-count="2"><div class="parameters-list toplevel"><span class="paren">(</span><div class="runtime-parameter-item parameter-item"><span class="parameter-type-holder"><span class="parameter-type"><a class="name" data-ident="Matrix3x3" href="minerva.matrix.matrix3.Matrix3x3.html" title="minerva.matrix.matrix3.Matrix3x3">Matrix3x3</a></span></span> <span class="parameter-name name" data-ident="m1"><a href="#param-m1">m1</a></span></div><span class="comma">,</span><div class="runtime-parameter-item parameter-item"><span class="parameter-type-holder"><span class="parameter-type"><a class="name" data-ident="Matrix3x3" href="minerva.matrix.matrix3.Matrix3x3.html" title="minerva.matrix.matrix3.Matrix3x3">Matrix3x3</a></span></span> <span class="parameter-name name" data-ident="m2"><a href="#param-m2">m2</a></span></div><span class="paren">)</span></div></div><div class="function-contracts"></div></div></li><li class="overload-option"><a href="minerva.matrix.matrix3.mult.2.html"><span class="overload-signature"><tt class="highlighted"><span class="hid">Vector3</span></tt> <span class="name">mult</span>(Matrix3x3 m, Vector3 v)</span></a></li></ol></div><div><h2 id="parameters"><a class="header-anchor" href="#parameters">Parameters</a></h2><dl class="parameter-descriptions"><dt id="param-m1"><a class="parameter-name" data-ident="m1" href="#param-m1">m1</a> <span class="parameter-type"><a class="xref" href="minerva.matrix.matrix3.Matrix3x3.html" title="minerva.matrix.matrix3.Matrix3x3"><span class="name" data-ident="Matrix3x3">Matrix3x3</span></a></span></dt><dd><div class="documentation-comment"><div><p>is the left hand side matrix.</p></div></div></dd><dt id="param-m2"><a class="parameter-name" data-ident="m2" href="#param-m2">m2</a> <span class="parameter-type"><a class="xref" href="minerva.matrix.matrix3.Matrix3x3.html" title="minerva.matrix.matrix3.Matrix3x3"><span class="name" data-ident="Matrix3x3">Matrix3x3</span></a></span></dt><dd><div class="documentation-comment"><div><p>is the right hand side matrix.</p></div></div></dd></dl><h2 id="returns"><a class="header-anchor" href="#returns">Return Value</a></h2><div><div class="return-type-holder">Type: <span class="return-type"><a class="xref" href="minerva.matrix.matrix3.Matrix3x3.html" title="minerva.matrix.matrix3.Matrix3x3"><span class="name" data-ident="Matrix3x3">Matrix3x3</span></a></span></div><div class="documentation-comment returns-description"><div><p>The resulting <tt class="inline-code">Matrix3x3</tt> from the multiplication.</p></div></div></div><h2 id="examples"><a class="header-anchor" href="#examples">Examples</a></h2><div class="documentation-comment"><div></div></div><div class="unittest-example-holder"><div class="documentation-comment"><p>Matrix-Matrix multiplication for 3x3 matrices</p></div><pre class="d_code highlighted"><span class="kwrd">auto</span> <span class="hid">a</span> = <span class="hid">Matrix3x3</span>(<span class="num">1.0</span>, <span class="num">2.0</span>, <span class="num">3.0</span>,
+    <span class="num">4.0</span>, <span class="num">5.0</span>, <span class="num">6.0</span>,
+    <span class="num">7.0</span>, <span class="num">8.0</span>, <span class="num">9.0</span>);
+<span class="kwrd">auto</span> <span class="hid">b</span> = <span class="hid">Matrix3x3</span>(<span class="num">9.0</span>, <span class="num">8.0</span>, <span class="num">7.0</span>,
+    <span class="num">6.0</span>, <span class="num">5.0</span>, <span class="num">4.0</span>,
+    <span class="num">3.0</span>, <span class="num">2.0</span>, <span class="num">1.0</span>);
+
+<span class="kwrd">assert</span>(<span class="hid">a</span>.<span class="hid">mult</span>(<span class="hid">b</span>) == <span class="hid">Matrix3x3</span>(<span class="num">30.0</span>, <span class="num">24.0</span>, <span class="num">18.0</span>,
+        <span class="num">84.0</span>, <span class="num">69.0</span>, <span class="num">54.0</span>,
+        <span class="num">138.0</span>, <span class="num">114.0</span>, <span class="num">90.0</span>));</pre></div><h2 id="meta"><a class="header-anchor" href="#meta">Meta</a></h2><div class="documentation-comment authors-section other-section"><h3 id="authors"><a class="header-anchor" href="#authors">Authors</a></h3><div><p>eXodiquas</p></div></div><div class="documentation-comment date-section other-section"><h3 id="date"><a class="header-anchor" href="#date">Date</a></h3><div><p>Date: September 24, 2021</p></div></div></div></div>
+		<div id="page-nav"><a class="parent" href="minerva.html">minerva</a> <a class="parent" href="minerva.matrix.html">matrix</a> <a class="parent" href="minerva.matrix.matrix3.html">matrix3</a> 
+		<span class="type-separator">functions</span><ul><li><a class="function" href="minerva.matrix.matrix3.colVectors.html">colVectors</a></li><li><a class="function current" href="minerva.matrix.matrix3.mult.1.html">mult</a></li><li><a class="function" href="minerva.matrix.matrix3.rowVectors.html">rowVectors</a></li><li><a class="function" href="minerva.matrix.matrix3.scale.html">scale</a></li><li><a class="function" href="minerva.matrix.matrix3.unit3x3.html">unit3x3</a></li></ul><span class="type-separator">structs</span><ul><li><a class="struct" href="minerva.matrix.matrix3.Matrix3x3.html">Matrix3x3</a></li></ul></div>
+	</div>
+	<div id="page-footer">Page generated by <a href="https://github.com/adamdruppe/adrdox">adrdox</a></div>
+</body>
+</html>

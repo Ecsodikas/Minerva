@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <title>minerva.vector.vectorn (minerva.vector.vectorn)</title>
+	<meta charset="utf-8" />
+	<meta content="width=device-width, initial-scale=1" name="viewport" />
+        <link href="style.css" rel="stylesheet" />
+        <script src="script.js" type="text/javascript"></script>
+
+	
+	<link href="search-results.html" rel="prefetch" />
+</head>
+<body>
+	<div id="page-header">
+		<div id="logotype">
+		<span>Documentation</span>
+		<nav>
+			<a href="http://dlang.org/">Dlang.org</a>
+		</nav>
+		</div>
+
+		<form action="search-docs.html" id="search">
+			<input name="searchTerm" placeholder="Find a symbol name..." type="search" />
+			<input type="submit" value="Go" />
+		</form>
+	</div>
+	<div id="page-body">
+		<div id="page-content">
+		<h1>minerva.vector.vectorn</h1><div class="breadcrumbs"><a class="breadcrumb" href="minerva.html">minerva</a> <a class="breadcrumb" href="minerva.vector.html">vector</a> </div><div><div class="documentation-comment synopsis"><div><p>Swag</p></div></div></div><div class="annotated-prototype"></div><h2 id="members"><a class="header-anchor" href="#members">Members</a></h2><h3 class="member-list-header hide-from-toc" id="function"><a class="header-anchor" href="#function">Functions</a></h3><dl class="member-list native"><dt><a href="minerva.vector.vectorn.add.html">add</a><div class="simplified-prototype" style="max-width: 50ch;"><tt class="highlighted"><span class="hid">Vector</span>!<span class="hid">dim</span></tt> <span class="name">add</span>(Vector!dim lhs, Vector!dim rhs)</div></dt><dd><div><p>Adds two <tt class="inline-code">Vector!dim</tt> with the same dimensions component wise.</p></div></dd><dt><a href="minerva.vector.vectorn.angle.html">angle</a><div class="simplified-prototype" style="max-width: 46ch;"><tt class="highlighted"><span class="type">double</span></tt> <span class="name">angle</span>(Vector!dim v1, Vector!dim v2)</div></dt><dd><div><p>Calculates the angle between <tt class="inline-code">v1</tt> and <tt class="inline-code">v2</tt>.</p></div></dd><dt><a href="minerva.vector.vectorn.dot.html">dot</a><div class="simplified-prototype" style="max-width: 44ch;"><tt class="highlighted"><span class="type">double</span></tt> <span class="name">dot</span>(Vector!dim v1, Vector!dim v2)</div></dt><dd><div><p>Calculates the dot product of <tt class="inline-code">v1</tt> and <tt class="inline-code">v2</tt>.</p></div></dd><dt><a href="minerva.vector.vectorn.mag.html">mag</a><div class="simplified-prototype" style="max-width: 26ch;"><tt class="highlighted"><span class="type">double</span></tt> <span class="name">mag</span>(Vector!dim v)</div></dt><dd><div><p>Calculates the magnitude (or length) of <tt class="inline-code">v</tt>.</p></div></dd><dt><a href="minerva.vector.vectorn.multM.html">multM</a><div class="simplified-prototype" style="max-width: 51ch;"><tt class="highlighted"><span class="hid">Vector</span>!<span class="hid">N</span></tt> <span class="name">multM</span>(Vector!M lhs, Matrix!(M, N) rhs)</div></dt><dd><div><p>Multiplies a N dimensional vector and a MxN matrix.
+You have to specify the dimensions of the matrices in the multiplication
+template arguments like <tt class="inline-code">multV!(M,N)(lhs, rhs)</tt>.</p></div></dd><dt><a href="minerva.vector.vectorn.norm.html">norm</a><div class="simplified-prototype" style="max-width: 31ch;"><tt class="highlighted"><span class="hid">Vector</span>!<span class="hid">dim</span></tt> <span class="name">norm</span>(Vector!dim v)</div></dt><dd><div><p>Calculates the normalized version of <tt class="inline-code">v</tt>.</p></div></dd><dt><a href="minerva.vector.vectorn.scale.html">scale</a><div class="simplified-prototype" style="max-width: 49ch;"><tt class="highlighted"><span class="hid">Vector</span>!<span class="hid">dim</span></tt> <span class="name">scale</span>(Vector!dim v, double scalar)</div></dt><dd><div><p>Scales a vector <tt class="inline-code">v</tt> by a given number <tt class="inline-code">scalar</tt>.</p></div></dd><dt><a href="minerva.vector.vectorn.upgrade.html">upgrade</a><div class="simplified-prototype" style="max-width: 41ch;"><tt class="highlighted"><span class="hid">Vector</span>!(<span class="hid">dim</span> + <span class="num">1</span>)</tt> <span class="name">upgrade</span>(Vector!dim v)</div></dt><dd><div><p>Adds a dimension to <tt class="inline-code">v</tt>, making it a <tt class="inline-code">Vector!(dim + 1)</tt>.
+The new dimension has default value 0.0.</p></div></dd><dt><a href="minerva.vector.vectorn.zeroN.html">zeroN</a><div class="simplified-prototype" style="max-width: 19ch;"><tt class="highlighted"><span class="hid">Vector</span>!<span class="hid">dim</span></tt> <span class="name">zeroN</span>()</div></dt><dd><div><p>Creates a <tt class="inline-code">Vector!dim</tt> filled with <tt class="inline-code">dim</tt> <tt class="inline-code">0.0</tt>s.</p></div></dd></dl><h3 class="member-list-header hide-from-toc" id="struct"><a class="header-anchor" href="#struct">Structs</a></h3><dl class="member-list native"><dt><a href="minerva.vector.vectorn.Vector.html">Vector</a><div class="simplified-prototype" style="max-width: 34ch;"><span class="builtin-type">struct</span> <span class="name">Vector</span><span class="template-params">(size_t dimension)</span></div></dt><dd><div><p>Struct representing a N-dimensional vector.
+This struct only works for vectors with more than 3 dimensions.</p></div></dd></dl><div></div></div>
+		<div id="page-nav"><a class="parent" href="minerva.html">minerva</a> <a class="parent" href="minerva.vector.html">vector</a> 
+		<span class="type-separator">modules</span><ul><li><a class="module" href="minerva.vector.vector2.html">vector2</a></li><li><a class="module" href="minerva.vector.vector3.html">vector3</a></li><li><a class="module current" href="minerva.vector.vectorn.html">vectorn</a></li></ul></div>
+	</div>
+	<div id="page-footer">Page generated by <a href="https://github.com/adamdruppe/adrdox">adrdox</a></div>
+</body>
+</html>
